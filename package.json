@@ -1,0 +1,33 @@
+{
+  "name": "messenger",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node src/app/server.ts",
+    "dev": "parcel static/index.html",
+    "build": "rm -rf dist && parcel build static/index.html"
+  },
+  "author": "m.anofrieva",
+  "license": "ISC",
+  "dependencies": {
+    "@anikin/parcel-transformer-handlebars-precompile": "^1.0.1",
+    "@parcel/transformer-typescript-tsc": "^2.8.3",
+    "express": "^4.18.2",
+    "handlebars": "^4.7.7",
+    "parcel": "^2.8.3"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.8.3",
+    "@types/node": "^18.14.2",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "eslint": "^8.35.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-import-resolver-typescript": "^3.5.3",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "2.8.4"
+  }
+}

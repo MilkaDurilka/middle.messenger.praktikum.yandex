@@ -1,0 +1,26 @@
+<div class="page">
+  <div class="buttons-group page-nav">
+    {{> link text='Back' href='#'}}
+    {{> button text='Logut' danger='true' }}
+  </div>
+  <div class="card card__lg">
+    <h1 class="card-title">Profile</h1>
+    <div class="cols">
+      <div class="cols-item">
+        {{> inputImg id='avatar' name='avatar' type='text' }}
+      </div>
+      <form class="card-body cols-item">
+        {{> input id='email' name='email' placeholder='Email' label='Email' type='text' }}
+        {{> input id='login' name='login' placeholder='Login' label='Login' type='text' }}
+        {{> input id='first_name' name='first_name' placeholder='First Name' label='First Name' type='text' }}
+        {{> input id='second_name' name='second_name' placeholder='Second Name' label='Second Name' type='text' }}
+        {{> input id='nickname' name='nickname' placeholder='Nickname' label='Nickname' type='text' }}
+        {{> input id='phone' name='phone' placeholder='Phone' label='Phone' type='text' }}
+        <div class="buttons-group">
+          {{> link text='Change password' href='#'}}
+          {{> button text='Edit'}}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

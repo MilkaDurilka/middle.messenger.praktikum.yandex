@@ -1,0 +1,18 @@
+<div class="page">
+  <div class="card">
+    <h1 class="card-title">Sign Up</h1>
+    <form class="card-body">
+      {{> input id='email' name='email' placeholder='Email' label='Email' type='text' }}
+      {{> input id='login' name='login' placeholder='Login' label='Login' type='text' }}
+      {{> input id='first_name' name='first_name' placeholder='First Name' label='First Name' type='text' }}
+      {{> input id='second_name' name='second_name' placeholder='Second Name' label='Second Name' type='text' }}
+      {{> input id='phone' name='phone' placeholder='Phone' label='Phone' type='text' }}
+      {{> input id='password' name='password' placeholder='Password' label='Password' type='password' }}
+      {{> input id='password_confirm' name='password_confirm' placeholder='Password Confirm' label='Password Confirm' type='password' }}
+      <div class="buttons-group">
+        {{> link text='Log in' href='#'}}
+        {{> button text='Sign up'}}
+      </div>
+    </form>
+  </div>
+</div>
