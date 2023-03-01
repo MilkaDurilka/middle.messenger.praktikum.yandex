@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node src/app/server.ts",
     "dev": "parcel static/index.html",
-    "build": "rm -rf dist && parcel build static/index.html"
+    "build": "rm -rf .parcel-cache dist && parcel build static/index.html"
   },
   "author": "m.anofrieva",
   "license": "ISC",
