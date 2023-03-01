@@ -9,7 +9,7 @@ Netlify: https://monumental-twilight-a5371e.netlify.app/
     ```
     npm run dev
     ```
-  
+
 - для сборки
     ```
     npm run build
@@ -18,7 +18,7 @@ Netlify: https://monumental-twilight-a5371e.netlify.app/
   ```
   npm run start
   ```
-  
+
 Стек:
   - TS
   - Handlebars
