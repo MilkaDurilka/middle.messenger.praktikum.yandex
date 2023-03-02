@@ -1,0 +1,16 @@
+.link {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2em;
+  line-height: 140%;
+
+  color: var(--link);
+
+  text-decoration: underline;
+  transition: opacity ease-out .3s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
