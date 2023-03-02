@@ -1,4 +1,4 @@
-import Handlebars = require("handlebars");
+import * as Handlebars from "handlebars";
 
 export type TRegisterPartial = {
   name: string;
