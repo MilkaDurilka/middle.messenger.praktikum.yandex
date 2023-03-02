@@ -1,7 +1,7 @@
 <div class="page">
   <div class="buttons-group page-nav">
     {{> link text='Back' href='#'}}
-    {{> button text='Logut' danger='true' }}
+    {{> button type='button' text='Logut' danger='true' }}
   </div>
   <div class="card">
     <h1 class="card-title">Change password</h1>
@@ -10,7 +10,7 @@
       {{> input id='newPassword' name='newPassword' placeholder='New password' label='New password' type='password' }}
       {{> input id='confirmPassword' name='confirmPassword' placeholder='Confirm password' label='Confirm password' type='password' }}
       <div class="buttons-group">
-        {{> button text='Save'}}
+        {{> button type='submit' text='Save'}}
       </div>
     </form>
   </div>
