@@ -2,9 +2,9 @@
 @import "fonts";
 
 * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
@@ -38,46 +38,47 @@ h4 {
 
 .body-intro {
   font-family: Roboto, sans-serif;
-  font-weight: 500;
   font-size: 2.4rem;
+  font-weight: 500;
   line-height: 2.8rem;
 }
 
 .body-main {
   font-family: Roboto, sans-serif;
-  font-weight: 400;
   font-size: 2rem;
+  font-weight: 400;
   line-height: 140%;
 }
 
 p {
   font-family: Roboto, sans-serif;
-  font-weight: 400;
   font-size: 1.7rem;
+  font-weight: 400;
   line-height: 130%;
 }
 
 span, label, input {
   font-family: Roboto, sans-serif;
-  font-weight: 400;
   font-size: 1.5rem;
+  font-weight: 400;
   line-height: 130%;
 }
 
 .small {
   font-family: Roboto, sans-serif;
-  font-weight: 400;
   font-size: 1.3rem;
+  font-weight: 400;
   line-height: 130%;
 }
 
 .card {
-  border: 2px solid var(--text);
-  border-radius: 48px;
-  padding: 34px 94px;
   width: 520px;
   margin-top: 10vh;
   margin-bottom: 10vh;
+  padding: 34px 94px;
+
+  border: 2px solid var(--text);
+  border-radius: 48px;
 
   &__lg {
     width: 845px;
@@ -97,16 +98,17 @@ span, label, input {
 .buttons-group {
   display: flex;
   column-gap: 24px;
-  justify-content: end;
   align-items: center;
+  justify-content: end;
 }
 
 .page {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+
   min-height: calc(100vh - var(--nav-height));
-  flex-direction: column;
   padding: 16px;
 }
 
@@ -117,8 +119,8 @@ span, label, input {
 .cols {
   display: flex;
   flex-direction: row;
-  align-items: center;
   column-gap: 86px;
+  align-items: center;
 
   &-item {
     flex: 1 0 auto;
