@@ -1,0 +1,24 @@
+.button{
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2rem;
+  line-height: 140%;
+  padding: 8px 16px;
+
+  color: var(--text2);
+
+  background: var(--primary);
+  border-radius: calc(var(--aliquot) * 2);
+  border: 0;
+  cursor: pointer;
+  transition: box-shadow ease-out .3s;
+
+  &:hover {
+    box-shadow: 0 1px 4px var(--primary);
+  }
+}
+
+.danger {
+  background: var(--danger);
+}
