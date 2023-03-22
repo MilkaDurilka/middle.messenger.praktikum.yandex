@@ -1,1 +1,1 @@
-export type TCallback = (...args: unknown[]) => void;
+export type TCallback = (...args: any[]) => void;

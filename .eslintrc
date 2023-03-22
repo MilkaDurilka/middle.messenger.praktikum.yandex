@@ -7,7 +7,8 @@
   "rules": {
     "import/prefer-default-export": "off",
     "prettier/prettier": ["error"],
-    "@typescript-eslint/consistent-type-imports": "error"
+    "@typescript-eslint/consistent-type-imports": "error",
+    "class-methods-use-this": "off"
   },
   "settings": {
     "import/resolver": {
