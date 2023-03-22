@@ -36,39 +36,43 @@ h4 {
   line-height: 3.5rem;
 }
 
-.body-intro {
+.text-intro {
   font-family: Roboto, sans-serif;
   font-size: 2.4rem;
   font-weight: 500;
   line-height: 2.8rem;
 }
 
-.body-main {
+.text-main {
   font-family: Roboto, sans-serif;
   font-size: 2rem;
   font-weight: 400;
   line-height: 140%;
 }
 
-p {
+p, .text-medium {
   font-family: Roboto, sans-serif;
   font-size: 1.7rem;
   font-weight: 400;
   line-height: 130%;
 }
 
-span, label, input {
+span, label, input, .text-caption {
   font-family: Roboto, sans-serif;
   font-size: 1.5rem;
   font-weight: 400;
   line-height: 130%;
 }
 
-.small {
+.text-small {
   font-family: Roboto, sans-serif;
   font-size: 1.3rem;
   font-weight: 400;
   line-height: 130%;
+}
+
+a {
+  color: var(--text)
 }
 
 .card {
@@ -125,4 +129,40 @@ span, label, input {
   &-item {
     flex: 1 0 auto;
   }
+}
+
+.main {
+  overflow: hidden;
+  display: flex;
+
+  height: calc(100vh - 100px);
+  max-height: 940px;
+
+  border: 2px solid var(--text);
+  border-radius: 48px;
+}
+
+
+.chats {
+  width: 360px;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid var(--text);
+}
+
+.aside-header {
+  display: flex;
+  flex-direction: column;
+  row-gap: 43px;
+
+  padding: 16px;
+
+  border-bottom: 2px solid var(--text);
+}
+
+.aside-body {
+  overflow-y: auto;
 }

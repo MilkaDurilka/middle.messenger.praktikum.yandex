@@ -1,4 +1,4 @@
-import Handlebars from "handlebars/dist/handlebars.runtime";
+import type Handlebars from "handlebars/dist/handlebars.runtime";
 import { ROUTES } from "./constants";
 import login from "../../pages/login/index.hbs";
 import signup from "../../pages/sign-up/index.hbs";
@@ -7,6 +7,7 @@ import changePassword from "../../pages/change-password/index.hbs";
 import page404 from "../../pages/errors/404.hbs";
 import page500 from "../../pages/errors/500.hbs";
 import guide from "../../pages/guide/index.hbs";
+import chat from "../../pages/chat/index.hbs";
 
 export function getTemplateByRoute(
   route: string
@@ -27,6 +28,8 @@ export function getTemplateByRoute(
       return page500;
     case ROUTES.guide:
       return guide;
+    case ROUTES.chat:
+      return chat;
     default:
       return page404;
   }

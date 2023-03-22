@@ -5,3 +5,5 @@ import "./input";
 import "./input-img";
 import "./error-page";
 import "./nav";
+import "./chat-item";
+import "./avatar";
