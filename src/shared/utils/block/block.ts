@@ -1,5 +1,5 @@
 import { v4 as generateUuid } from "uuid";
-import type { TBlockProps, TBlockChildren } from "./types";
+import type { TBlockProps, TBlockChildren, TStubs } from "./types";
 import { EventBus } from "../event-bus";
 
 export abstract class Block<T extends TBlockProps = TBlockProps> {
@@ -23,9 +23,7 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
   protected constructor(propsAndChildren: T) {
     const { children, props } = this.separatePropsFromChildren(propsAndChildren);
 
-    if (props.settings?.withInternalId) {
-      this.id = generateUuid();
-    }
+    this.id = generateUuid();
 
     this.props = this.makePropsProxy({ ...props, __id: this.id });
     this.children = children;
@@ -75,7 +73,13 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
   private innerMounted() {
     this.mounted();
 
-    Object.values(this.children).forEach((child) => child.dispatchMounted());
+    Object.values(this.children).forEach((value) => {
+      if (Array.isArray(value)) {
+        value.forEach((child) => child.dispatchMounted());
+      } else {
+        value.dispatchMounted();
+      }
+    });
   }
 
   mounted() {}
@@ -115,26 +119,48 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
   abstract render(): DocumentFragment;
 
   protected compile(template: (props: TBlockProps) => string, props: TBlockProps) {
-    const stubs: Record<string, string> = {};
-
-    Object.entries(this.children).forEach(([name, child]) => {
-      stubs[name] = `<div data-id="${child.id}"></div>`;
-    });
-
+    const stubs = this.getStubsForChildren();
     const propsWithStubs: TBlockProps = { ...props, ...stubs };
 
     const fragment = this.createDocumentElement("template");
     fragment.innerHTML = template(propsWithStubs);
 
-    Object.values(this.children).forEach((child) => {
-      const stub = fragment.content.querySelector(`[data-id='${child.id}']`);
-      const content = child.getContent();
-      if (stub && content) {
-        stub.replaceWith(content);
+    Object.values(this.children).forEach((value) => {
+      if (Array.isArray(value)) {
+        value.forEach((child) => this.replaceStubWithComponent(fragment, child));
+      } else {
+        this.replaceStubWithComponent(fragment, value);
       }
     });
 
     return fragment.content;
+  }
+
+  private getStubsForChildren(): TStubs {
+    const stubs: TStubs = {};
+
+    Object.entries(this.children).forEach(([name, value]) => {
+      if (Array.isArray(value)) {
+        stubs[name] = value.map((child) => `<div data-id="${child.id}"></div>`).join("");
+      } else {
+        stubs[name] = `<div data-id="${value.id}"></div>`;
+      }
+    });
+    return stubs;
+  }
+
+  private replaceStubWithComponent(fragment: HTMLTemplateElement, block: Block): void {
+    const stubsElements = fragment.content.querySelectorAll(`[data-id='${block.id}']`);
+    const content = block.getContent();
+    if (!content) return;
+
+    if (stubsElements.length === 1) {
+      stubsElements[0].replaceWith(content);
+    } else if (stubsElements.length) {
+      stubsElements.forEach((stub) => {
+        stub.replaceWith(content.cloneNode(true));
+      });
+    }
   }
 
   getContent(): HTMLElement | undefined {
@@ -185,7 +211,10 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
     const children: TBlockChildren = {};
 
     Object.entries(propsAndChildren).forEach(([name, value]) => {
-      if (value instanceof Block) {
+      if (
+        value instanceof Block ||
+        (Array.isArray(value) && value.every((element) => element instanceof Block))
+      ) {
         children[name] = value;
       } else {
         props[name] = value;

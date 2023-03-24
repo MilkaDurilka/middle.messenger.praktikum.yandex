@@ -1,13 +1,9 @@
 <div class="page {{ style.wrapper }}">
   <h1>{{title}}</h1>
-  {{#if icon}}
-    {{> (lookup . 'icon') width=255 }}
-  {{/if}}
+  {{#if icon}} {{{ icon }}} {{/if}}
   {{#if description}}
     <p class="text-main">
       {{description}}</p>
   {{/if}}
-  {{#if linkText}}
-    {{> link text=linkText href=linkUrl}}
-  {{/if}}
+  {{#if link}} {{{ link }}} {{/if}}
 </div>

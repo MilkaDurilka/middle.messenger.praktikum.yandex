@@ -4,10 +4,9 @@ export type TCallback = (...args: any[]) => void;
 
 export type TBlockProps = Record<string, unknown> & {
   events?: Record<string, TCallback>;
-  settings?: {
-    withInternalId: boolean;
-  };
   style?: any;
 };
 
-export type TBlockChildren = Record<string, Block>;
+export type TBlockChildren = Record<string, Block | Block[]>;
+
+export type TStubs = Record<string, string>;

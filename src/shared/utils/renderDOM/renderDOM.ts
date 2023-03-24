@@ -5,6 +5,7 @@ export function renderDOM(query: string, block: Block): Element | null {
   const content = block.getContent();
 
   if (root && content) {
+    root.innerHTML = "";
     root.appendChild(content);
     block.dispatchMounted();
     return root;

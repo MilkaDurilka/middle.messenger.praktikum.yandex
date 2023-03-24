@@ -1,6 +1,1 @@
-import { registerPartial } from "../../utils/register-partial";
-
-import template from "./template.hbs";
-import * as style from "./style.module.scss";
-
-registerPartial({ name: "chatItem", template, style });
+export { ChatItem } from "./chat-item";

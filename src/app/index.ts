@@ -1,17 +1,12 @@
-import "../shared/components";
 import "./styles/index.scss";
-import template from "./index.hbs";
-import { ROUTES, getTemplateByRoute } from "../shared/router";
-
-const navs = Object.entries(ROUTES).map(([name, path]) => ({ name, path }));
+import { getPageByRoute } from "../shared/router";
+import { renderDOM } from "../shared/utils/renderDOM";
+import { Layout } from "./layout";
 
 const render = () => {
-  const app = document.getElementById("root");
+  const layout = new Layout({ content: getPageByRoute(window.location.hash) });
 
-  app.innerHTML = template({
-    content: getTemplateByRoute(window.location.hash),
-    navs,
-  });
+  renderDOM("#root", layout);
 };
 
 window.addEventListener("DOMContentLoaded", render);
