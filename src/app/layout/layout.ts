@@ -1,6 +1,6 @@
 import { Block } from "../../shared/utils/block";
 import template from "./template.hbs";
-import { ROUTES } from "../../shared/router";
+import { ROUTES } from "../../shared/router/constants";
 import type { TLayoutProps, TLayoutBlock } from "./types";
 import { Nav } from "../../shared/components";
 

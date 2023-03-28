@@ -2,7 +2,9 @@
   type="{{type}}"
   class="
     {{style.button}}
-  {{#if danger }}{{ style.danger }}{{/if}}
+    {{#if danger }}{{ style.danger }}{{/if}}
+    {{#if icon }}{{ style.icon }}{{/if}}
 ">
+  {{{icon}}}
   {{text}}
 </button>

@@ -1,14 +1,11 @@
-import type { Button, Link, Input } from "../../shared/components";
+import type { Block } from "../../shared/utils/block";
 
 export type TChangePasswordProps = {
   title: string;
 };
 
 export type TChangePasswordBlockProps = TChangePasswordProps & {
-  linkBack: Link;
-  buttonLogout: Button;
-  inputOldPassword: Input;
-  inputNewPassword: Input;
-  inputConfirmPassword: Input;
-  buttonSubmit: Button;
+  linkBack: Block;
+  buttonLogout: Block;
+  form: Block;
 };

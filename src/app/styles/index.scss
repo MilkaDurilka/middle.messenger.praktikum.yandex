@@ -141,28 +141,3 @@ a {
   border: 2px solid var(--text);
   border-radius: 48px;
 }
-
-
-.chats {
-  width: 360px;
-}
-
-.aside {
-  display: flex;
-  flex-direction: column;
-  border-right: 2px solid var(--text);
-}
-
-.aside-header {
-  display: flex;
-  flex-direction: column;
-  row-gap: 43px;
-
-  padding: 16px;
-
-  border-bottom: 2px solid var(--text);
-}
-
-.aside-body {
-  overflow-y: auto;
-}

@@ -1,8 +1,8 @@
 import type { TOptions, TOptionsWithoutMethod } from "./types";
-import { METHOD } from "./utils";
+import { METHOD, queryStringify } from "./utils";
+import { isObject } from "../utils/object";
 
 class HttpTransport {
-  // eslint-disable-next-line class-methods-use-this
   private request(
     url: string,
     options: TOptions = { method: METHOD.GET }
@@ -32,7 +32,8 @@ class HttpTransport {
   }
 
   get(url: string, options: TOptionsWithoutMethod): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.GET });
+    const data = isObject(options.data) ? queryStringify(options.data) : "";
+    return this.request(url + data, { ...options, method: METHOD.GET });
   }
 
   post(url: string, options: TOptionsWithoutMethod): Promise<XMLHttpRequest> {

@@ -1,0 +1,17 @@
+.day-messages {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  padding: 16px 32px 16px 16px;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.date {
+  color: var(--secondary);
+  text-align: center
+}

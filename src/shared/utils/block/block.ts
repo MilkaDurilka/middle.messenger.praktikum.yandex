@@ -14,13 +14,13 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
 
   private readonly id?: string;
 
-  protected readonly props: T & { __id?: string };
+  protected readonly props: TBlockProps<T>;
 
   protected readonly children: TBlockChildren;
 
   private readonly eventBus: EventBus;
 
-  protected constructor(propsAndChildren: T) {
+  protected constructor(propsAndChildren: TBlockProps<T>) {
     const { children, props } = this.separatePropsFromChildren(propsAndChildren);
 
     this.id = generateUuid();
@@ -47,7 +47,7 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
     });
   }
 
-  setProps(nextProps: T): void {
+  setProps(nextProps: Partial<T>): void {
     if (!nextProps) {
       return;
     }

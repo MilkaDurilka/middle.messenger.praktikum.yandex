@@ -1,0 +1,12 @@
+.chat-body {
+  overflow-y: auto;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  column-gap: 4px;
+  justify-content: end;
+}
+

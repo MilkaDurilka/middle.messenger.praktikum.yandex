@@ -1,4 +1,4 @@
-export function queryStringify(data: Record<string, unknown>): string {
+export function queryStringify(data: TObject): string {
   const query: string[] = [];
 
   Object.entries(data).forEach(([key, value]) => {

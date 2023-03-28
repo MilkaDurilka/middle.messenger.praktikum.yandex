@@ -5,8 +5,5 @@ export type TLoginProps = {
 };
 
 export type TLoginBlockProps = TLoginProps & {
-  inputLogin: Block;
-  inputPassword: Block;
-  linkSignUp: Block;
-  buttonSubmit: Block;
+  form: Block;
 };

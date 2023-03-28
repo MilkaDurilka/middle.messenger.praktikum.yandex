@@ -8,12 +8,5 @@ export type TProfileBlockProps = TProfileProps & {
   linkBack: Block;
   buttonLogout: Block;
   inputAvatar: Block;
-  inputEmail: Block;
-  inputLogin: Block;
-  inputFirstName: Block;
-  inputSecondName: Block;
-  inputNickname: Block;
-  inputPhone: Block;
-  linkChangePassword: Block;
-  buttonSubmit: Block;
+  form: Block;
 };
