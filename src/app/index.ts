@@ -1,4 +1,5 @@
 import "./styles/index.scss";
+import "../shared/utils/locale";
 import { getPageByRoute } from "../shared/router";
 import { renderDOM } from "../shared/utils/renderDOM";
 import { Layout } from "./layout";

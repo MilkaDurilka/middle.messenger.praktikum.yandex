@@ -33,6 +33,13 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
     this.eventBus.emit(this.EVENTS.INIT);
   }
 
+  registerEventListener(): void {
+    this.eventBus.on(this.EVENTS.INIT, this.innerInit.bind(this));
+    this.eventBus.on(this.EVENTS.MOUNTED, this.innerMounted.bind(this));
+    this.eventBus.on(this.EVENTS.UPDATED, this.innerUpdated.bind(this));
+    this.eventBus.on(this.EVENTS.RENDER, this.innerRender.bind(this));
+  }
+
   makePropsProxy(props: T) {
     return new Proxy(props, {
       set: (target: T, name: string, newValue: unknown): boolean => {
@@ -54,15 +61,10 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
     Object.assign(this.props, nextProps);
   }
 
-  registerEventListener(): void {
-    this.eventBus.on(this.EVENTS.INIT, this.innerInit.bind(this));
-    this.eventBus.on(this.EVENTS.MOUNTED, this.innerMounted.bind(this));
-    this.eventBus.on(this.EVENTS.UPDATED, this.innerUpdated.bind(this));
-    this.eventBus.on(this.EVENTS.RENDER, this.innerRender.bind(this));
-  }
+  init() {}
 
   private innerInit() {
-    // this.createResources();
+    this.init();
     this.eventBus.emit(this.EVENTS.RENDER);
   }
 
@@ -107,11 +109,11 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
 
     this.removeEvents();
 
-    if (!this.element) {
-      this.element = element as HTMLElement;
-    } else {
+    if (this.element && element) {
       this.element.replaceWith(element);
     }
+
+    this.element = element as HTMLElement;
 
     this.addEvents();
   }

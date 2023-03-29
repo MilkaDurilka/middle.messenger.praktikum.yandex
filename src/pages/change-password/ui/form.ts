@@ -6,14 +6,17 @@ import type { TTemplateBlockProps, TSchema } from "./types";
 import { passwordRegexp } from "../../../shared/utils/regexp";
 import { Form } from "../../../shared/components/form";
 import { EForm } from "./types";
+import { localeValidation } from "../../../shared/utils/locale";
 
-const formValidate = {
+const changePasswordSchema: ObjectSchema<TSchema> = object({
   [EForm.oldPassword]: string().required(),
-  [EForm.newPassword]: string().required().min(8).max(40).matches(passwordRegexp),
+  [EForm.newPassword]: string().required().min(8).max(40).matches(passwordRegexp, {
+    message: localeValidation.passwordRegexp,
+  }),
   [EForm.confirmPassword]: string()
     .required()
     .oneOf([ref(EForm.newPassword)]),
-};
+});
 
 const inputOldPassword = new Input({
   id: EForm.oldPassword,
@@ -21,7 +24,6 @@ const inputOldPassword = new Input({
   placeholder: "Old password",
   label: "Old password",
   type: "password",
-  validateScheme: formValidate.oldPassword,
 });
 
 const inputNewPassword = new Input({
@@ -30,7 +32,6 @@ const inputNewPassword = new Input({
   placeholder: "New password",
   label: "New password",
   type: "password",
-  validateScheme: formValidate.newPassword,
 });
 
 const inputConfirmPassword = new Input({
@@ -39,7 +40,6 @@ const inputConfirmPassword = new Input({
   placeholder: "Confirm password",
   label: "Confirm password",
   type: "password",
-  validateScheme: formValidate.confirmPassword,
 });
 
 const formElements = {
@@ -47,8 +47,6 @@ const formElements = {
   [EForm.newPassword]: inputNewPassword,
   [EForm.confirmPassword]: inputConfirmPassword,
 };
-
-const changePasswordSchema: ObjectSchema<TSchema> = object(formValidate);
 
 type TFormElements = typeof formElements;
 export class ChangePasswordForm extends Form<TTemplateBlockProps, TFormElements, TSchema> {

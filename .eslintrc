@@ -8,7 +8,8 @@
     "import/prefer-default-export": "off",
     "prettier/prettier": ["error"],
     "@typescript-eslint/consistent-type-imports": "error",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "no-template-curly-in-string": "off"
   },
   "settings": {
     "import/resolver": {
