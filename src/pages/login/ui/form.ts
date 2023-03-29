@@ -2,22 +2,25 @@ import type { ObjectSchema } from "yup";
 import { object, string } from "yup";
 import { Button, Input, Link } from "../../../shared/components";
 import template from "./template.hbs";
-import type { TLoginFormBlock, TLoginForm } from "./types";
+import type { TLoginForm, TLoginFormBlock } from "./types";
+import { EForm } from "./types";
 import { ROUTES } from "../../../shared/router/constants";
 import { loginRegexp, passwordRegexp } from "../../../shared/utils/regexp";
 import { Form } from "../../../shared/components/form";
-import { EForm } from "./types";
 
-const loginSchema: ObjectSchema<TLoginForm> = object({
-  login: string().required().min(3).max(8).matches(loginRegexp),
-  password: string().required().min(8).max(40).matches(passwordRegexp),
-});
+const formValidate = {
+  [EForm.login]: string().required().min(3).max(8).matches(loginRegexp),
+  [EForm.password]: string().required().min(8).max(40).matches(passwordRegexp),
+};
+
+const loginSchema: ObjectSchema<TLoginForm> = object(formValidate);
 
 const inputLogin = new Input({
   id: EForm.login,
   name: EForm.login,
   placeholder: "Login",
   label: "Login",
+  validateScheme: formValidate[EForm.login],
 });
 
 const inputPassword = new Input({
@@ -26,6 +29,7 @@ const inputPassword = new Input({
   placeholder: "Password",
   label: "Password",
   type: "password",
+  validateScheme: formValidate[EForm.password],
 });
 
 const formElements = {

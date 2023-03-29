@@ -2,17 +2,30 @@ import type { ObjectSchema } from "yup";
 import { object, ref, string } from "yup";
 import { Button, Input, Link } from "../../../shared/components";
 import template from "./template.hbs";
-import type { TSignUpFormProps, TSignUpForm } from "./types";
+import type { TSignUpForm, TSignUpFormProps } from "./types";
+import { EForm } from "./types";
 import { ROUTES } from "../../../shared/router/constants";
 import { loginRegexp, nameRegexp, passwordRegexp, phoneRegexp } from "../../../shared/utils/regexp";
 import { Form } from "../../../shared/components/form";
-import { EForm } from "./types";
+
+const formValidate = {
+  [EForm.email]: string().required().email(),
+  [EForm.login]: string().required().min(3).max(8).matches(loginRegexp),
+  [EForm.firstName]: string().required().matches(nameRegexp),
+  [EForm.secondName]: string().required().matches(nameRegexp),
+  [EForm.phone]: string().required().min(10).max(15).matches(phoneRegexp),
+  [EForm.password]: string().required().min(8).max(40).matches(passwordRegexp),
+  [EForm.confirmPassword]: string()
+    .required()
+    .oneOf([ref(EForm.password)]),
+};
 
 const inputEmail = new Input({
   id: EForm.email,
   name: EForm.email,
   placeholder: "Email",
   label: "Email",
+  validateScheme: formValidate[EForm.email],
 });
 
 const inputLogin = new Input({
@@ -20,6 +33,7 @@ const inputLogin = new Input({
   name: EForm.login,
   placeholder: "Login",
   label: "Login",
+  validateScheme: formValidate[EForm.login],
 });
 
 const inputFirstName = new Input({
@@ -27,6 +41,7 @@ const inputFirstName = new Input({
   name: EForm.firstName,
   placeholder: "First Name",
   label: "First Name",
+  validateScheme: formValidate[EForm.firstName],
 });
 
 const inputSecondName = new Input({
@@ -34,6 +49,7 @@ const inputSecondName = new Input({
   name: EForm.secondName,
   placeholder: "Second Name",
   label: "Second Name",
+  validateScheme: formValidate[EForm.secondName],
 });
 
 const inputPhone = new Input({
@@ -41,6 +57,7 @@ const inputPhone = new Input({
   name: EForm.phone,
   placeholder: "Phone",
   label: "Phone",
+  validateScheme: formValidate[EForm.phone],
 });
 
 const inputPassword = new Input({
@@ -49,6 +66,7 @@ const inputPassword = new Input({
   placeholder: "Password",
   label: "Password",
   type: "password",
+  validateScheme: formValidate[EForm.password],
 });
 
 const inputConfirmPassword = new Input({
@@ -57,6 +75,7 @@ const inputConfirmPassword = new Input({
   placeholder: "Confirm password",
   label: "Confirm password",
   type: "password",
+  validateScheme: formValidate[EForm.confirmPassword],
 });
 
 const formElements = {
@@ -69,17 +88,7 @@ const formElements = {
   [EForm.confirmPassword]: inputConfirmPassword,
 };
 
-const signUpSchema: ObjectSchema<TSignUpForm> = object({
-  [EForm.email]: string().required().email(),
-  [EForm.login]: string().required().min(3).max(8).matches(loginRegexp),
-  [EForm.firstName]: string().required().matches(nameRegexp),
-  [EForm.secondName]: string().required().matches(nameRegexp),
-  [EForm.phone]: string().required().min(10).max(15).matches(phoneRegexp),
-  [EForm.password]: string().required().min(8).max(40).matches(passwordRegexp),
-  [EForm.confirmPassword]: string()
-    .required()
-    .oneOf([ref(EForm.password)]),
-});
+const signUpSchema: ObjectSchema<TSignUpForm> = object(formValidate);
 
 export class SignUpForm extends Form<TSignUpFormProps, typeof formElements, TSignUpForm> {
   constructor() {

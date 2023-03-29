@@ -2,17 +2,27 @@ import type { ObjectSchema } from "yup";
 import { object, string } from "yup";
 import { Button, Input, Link } from "../../../shared/components";
 import template from "./template.hbs";
-import type { TProfileFormProps, TProfileForm } from "./types";
+import type { TProfileForm, TProfileFormProps } from "./types";
+import { EForm } from "./types";
 import { ROUTES } from "../../../shared/router/constants";
 import { loginRegexp, nameRegexp, phoneRegexp } from "../../../shared/utils/regexp";
 import { Form } from "../../../shared/components/form";
-import { EForm } from "./types";
+
+const formValidate = {
+  [EForm.email]: string().required().email(),
+  [EForm.login]: string().required().min(3).max(8).matches(loginRegexp),
+  [EForm.firstName]: string().required().matches(nameRegexp),
+  [EForm.secondName]: string().required().matches(nameRegexp),
+  [EForm.displayName]: string().required(),
+  [EForm.phone]: string().required().min(10).max(15).matches(phoneRegexp),
+};
 
 const inputEmail = new Input({
   id: EForm.email,
   name: EForm.email,
   placeholder: "Email",
   label: "Email",
+  validateScheme: formValidate[EForm.email],
 });
 
 const inputLogin = new Input({
@@ -20,6 +30,7 @@ const inputLogin = new Input({
   name: EForm.login,
   placeholder: "Login",
   label: "Login",
+  validateScheme: formValidate[EForm.login],
 });
 
 const inputFirstName = new Input({
@@ -27,6 +38,7 @@ const inputFirstName = new Input({
   name: EForm.firstName,
   placeholder: "First Name",
   label: "First Name",
+  validateScheme: formValidate[EForm.firstName],
 });
 
 const inputSecondName = new Input({
@@ -34,6 +46,7 @@ const inputSecondName = new Input({
   name: EForm.secondName,
   placeholder: "Second Name",
   label: "Second Name",
+  validateScheme: formValidate[EForm.secondName],
 });
 
 const inputDisplayName = new Input({
@@ -41,6 +54,7 @@ const inputDisplayName = new Input({
   name: EForm.displayName,
   placeholder: "Nickname",
   label: "Nickname",
+  validateScheme: formValidate[EForm.displayName],
 });
 
 const inputPhone = new Input({
@@ -48,6 +62,7 @@ const inputPhone = new Input({
   name: EForm.phone,
   placeholder: "Phone",
   label: "Phone",
+  validateScheme: formValidate[EForm.phone],
 });
 
 const formElements = {
@@ -59,14 +74,7 @@ const formElements = {
   [EForm.phone]: inputPhone,
 };
 
-const profileSchema: ObjectSchema<TProfileForm> = object({
-  [EForm.email]: string().required().email(),
-  [EForm.login]: string().required().min(3).max(8).matches(loginRegexp),
-  [EForm.firstName]: string().required().matches(nameRegexp),
-  [EForm.secondName]: string().required().matches(nameRegexp),
-  [EForm.displayName]: string().required(),
-  [EForm.phone]: string().required().min(10).max(15).matches(phoneRegexp),
-});
+const profileSchema: ObjectSchema<TProfileForm> = object(formValidate);
 
 export class ProfileForm extends Form<TProfileFormProps, typeof formElements, TProfileForm> {
   constructor() {
