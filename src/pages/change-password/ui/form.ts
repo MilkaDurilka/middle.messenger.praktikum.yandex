@@ -1,40 +1,61 @@
+import type { ObjectSchema } from "yup";
+import { object, ref, string } from "yup";
 import { Button, Input } from "../../../shared/components";
 import template from "./template.hbs";
-import { Block } from "../../../shared/utils/block";
-import type { TChangePasswordFormProps } from "./types";
+import type { TTemplateBlockProps, TSchema } from "./types";
+import { passwordRegexp } from "../../../shared/utils/regexp";
+import { Form } from "../../../shared/components/form";
+import { EForm } from "./types";
 
-export class ChangePasswordForm extends Block<TChangePasswordFormProps> {
+const formValidate = {
+  [EForm.oldPassword]: string().required(),
+  [EForm.newPassword]: string().required().min(8).max(40).matches(passwordRegexp),
+  [EForm.confirmPassword]: string()
+    .required()
+    .oneOf([ref(EForm.newPassword)]),
+};
+
+const inputOldPassword = new Input({
+  id: EForm.oldPassword,
+  name: EForm.oldPassword,
+  placeholder: "Old password",
+  label: "Old password",
+  type: "password",
+  validateScheme: formValidate.oldPassword,
+});
+
+const inputNewPassword = new Input({
+  id: EForm.newPassword,
+  name: EForm.newPassword,
+  placeholder: "New password",
+  label: "New password",
+  type: "password",
+  validateScheme: formValidate.newPassword,
+});
+
+const inputConfirmPassword = new Input({
+  id: EForm.confirmPassword,
+  name: EForm.confirmPassword,
+  placeholder: "Confirm password",
+  label: "Confirm password",
+  type: "password",
+  validateScheme: formValidate.confirmPassword,
+});
+
+const formElements = {
+  [EForm.oldPassword]: inputOldPassword,
+  [EForm.newPassword]: inputNewPassword,
+  [EForm.confirmPassword]: inputConfirmPassword,
+};
+
+const changePasswordSchema: ObjectSchema<TSchema> = object(formValidate);
+
+type TFormElements = typeof formElements;
+export class ChangePasswordForm extends Form<TTemplateBlockProps, TFormElements, TSchema> {
   constructor() {
     super({
-      events: {
-        submit: (e) => {
-          e.preventDefault();
-          const formData = new FormData(e.target);
-          const values = Object.fromEntries(formData.entries());
-          console.log("ChangePasswordForm form: ", values);
-        },
-      },
-      inputOldPassword: new Input({
-        id: "oldPassword",
-        name: "oldPassword",
-        placeholder: "Old password",
-        label: "Old password",
-        type: "password",
-      }),
-      inputNewPassword: new Input({
-        id: "newPassword",
-        name: "newPassword",
-        placeholder: "New password",
-        label: "New password",
-        type: "password",
-      }),
-      inputConfirmPassword: new Input({
-        id: "confirmPassword",
-        name: "confirmPassword",
-        placeholder: "Confirm password",
-        label: "Confirm password",
-        type: "password",
-      }),
+      schema: changePasswordSchema,
+      formElements,
       buttonSubmit: new Button({
         type: "submit",
         text: "Save",

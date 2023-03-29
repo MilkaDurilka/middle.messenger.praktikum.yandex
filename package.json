@@ -15,7 +15,8 @@
     "express": "^4.18.2",
     "handlebars": "^4.7.7",
     "parcel": "^2.8.3",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "yup": "^1.0.2"
   },
   "devDependencies": {
     "@parcel/css": "^1.14.0",

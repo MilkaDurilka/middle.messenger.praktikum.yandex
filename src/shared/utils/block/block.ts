@@ -20,7 +20,7 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
 
   private readonly eventBus: EventBus;
 
-  protected constructor(propsAndChildren: TBlockProps<T>) {
+  constructor(propsAndChildren: TBlockProps<T>) {
     const { children, props } = this.separatePropsFromChildren(propsAndChildren);
 
     this.id = generateUuid();
