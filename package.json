@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node src/app/server.ts",
     "dev": "parcel static/index.html",
-    "build": "rm -rf .parcel-cache dist && parcel build static/index.html"
+    "build": "rm -rf .parcel-cache dist && parcel build static/index.html",
+    "lint": "eslint --fix ./src"
   },
   "author": "m.anofrieva",
   "license": "ISC",

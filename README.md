@@ -19,9 +19,27 @@ Netlify: https://monumental-twilight-a5371e.netlify.app/
   npm run start
   ```
 
+- для запуска фикса Eslint
+  ```
+  npm run start
+  ```
+
+
 Стек:
   - TS
   - Handlebars
   - Parcel
   - Express
   - Feature-Sliced Design
+
+Функциональность:
+
+ - Внедрен TS
+ - Добавлен компонентный подход, компоненты реализованы на основе Block
+ - Реализлван EventBus
+ - Сбор данных из форм выводиться в console.log
+ - Добавлена валидация на все формы с использованием регулярных выражений.
+ - Генерация страниц на стороне клиента, сборка с помощью Parcel
+ - Структура проекта соотвествует Feature-Sliced Design
+ - Добавлен класс HTTPTransport для работы с запросами
+ - Добавлены ESLint, Stylelint
