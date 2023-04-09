@@ -1,12 +1,9 @@
-import type { TOptions, TOptionsWithoutMethod } from "./types";
+import type { TOptions, TRequest } from "./types";
 import { METHOD, queryStringify } from "./utils";
 import { isObject } from "../utils/object";
 
 class HttpTransport {
-  private request(
-    url: string,
-    options: TOptions = { method: METHOD.GET }
-  ): Promise<XMLHttpRequest> {
+  private request(url: string, options: TOptions = { method: METHOD.GET }): Promise<XMLHttpRequest> {
     const { method, data, headers = {} } = options;
     const xhr = new XMLHttpRequest();
 
@@ -31,27 +28,18 @@ class HttpTransport {
     });
   }
 
-  get(url: string, options: TOptionsWithoutMethod): Promise<XMLHttpRequest> {
+  get: TRequest = (url, options = {}) => {
     const data = isObject(options.data) ? queryStringify(options.data) : "";
     return this.request(url + data, { ...options, method: METHOD.GET });
-  }
+  };
 
-  post(url: string, options: TOptionsWithoutMethod): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.POST });
-  }
+  post: TRequest = (url, options = {}) => this.request(url, { ...options, method: METHOD.POST });
 
-  put(url: string, options: TOptionsWithoutMethod): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.PUT });
-  }
+  put: TRequest = (url, options = {}) => this.request(url, { ...options, method: METHOD.PUT });
 
-  delete(url: string, options: TOptionsWithoutMethod): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.DELETE });
-  }
+  delete: TRequest = (url, options = {}) => this.request(url, { ...options, method: METHOD.DELETE });
 
-  requestWithRetry(
-    url: string,
-    options: TOptions & { countRetries: number }
-  ): Promise<XMLHttpRequest> {
+  requestWithRetry(url: string, options: TOptions & { countRetries: number }): Promise<XMLHttpRequest> {
     const { countRetries, ...opt } = options;
 
     if (Number.isNaN(countRetries) || countRetries < 1) {

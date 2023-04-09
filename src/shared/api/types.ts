@@ -6,4 +6,6 @@ export type TOptions = {
   headers?: Record<string, string>;
 };
 
-export type TOptionsWithoutMethod = Omit<TOptions, "method">;
+type TOptionsWithoutMethod = Omit<TOptions, "method">;
+
+export type TRequest = (url: string, options?: TOptionsWithoutMethod) => Promise<XMLHttpRequest>;
