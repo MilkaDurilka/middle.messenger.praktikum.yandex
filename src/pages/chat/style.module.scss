@@ -1,0 +1,29 @@
+.aside {
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid var(--text);
+}
+
+.aside-header {
+  display: flex;
+  flex-direction: column;
+  row-gap: 43px;
+
+  padding: 16px;
+
+  border-bottom: 2px solid var(--text);
+}
+
+.aside-body {
+  overflow-y: auto;
+}
+
+.chats {
+  width: 360px;
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  width: 445px;
+}

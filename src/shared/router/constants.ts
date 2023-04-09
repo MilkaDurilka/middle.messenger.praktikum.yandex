@@ -7,4 +7,5 @@ export const ROUTES = {
   page404: "#404",
   page500: "#500",
   guide: "#guide",
+  chat: "#chat",
 } as const;

@@ -1,0 +1,23 @@
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-self: flex-start;
+
+  padding: 16px;
+
+  background-color: var(--message);
+  border-radius: 0 16px 16px;
+
+  &.is-mine {
+    align-self: flex-end;
+    background-color: var(--secondary2);
+    border-radius: 16px 16px 0;
+  }
+}
+
+.time {
+  color: var(--caption);
+  text-align: right;
+}
+

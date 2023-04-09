@@ -1,0 +1,18 @@
+<a href="#" class="{{ style.wrapper }}">
+  <div class="{{ style.chat }}">
+    <div class="{{ style.avatar }}">
+      {{{ avatar }}}
+    </div>
+    <div class="{{ style.content }}">
+      <span class="text-medium">{{name}}</span>
+      <span class="text-caption">{{ message }}</span>
+    </div>
+    <div class="{{ style.info }}">
+      <span class="text-small {{ style.date }}">{{ date }}</span>
+      <div>
+        {{#if count }}<span class="text-small {{ style.count }}">{{count}}</span>{{/if}}
+      </div>
+    </div>
+  </div>
+</a>
+

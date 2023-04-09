@@ -1,2 +1,1 @@
-export { ROUTES } from "./constants";
-export { getTemplateByRoute } from "./utils";
+export { getPageByRoute } from "./utils";

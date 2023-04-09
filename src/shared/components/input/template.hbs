@@ -2,20 +2,14 @@
   {{#if label}}
     <label for="{{id}}" class="{{style.label}}">{{label}}</label>
   {{/if}}
-  <div class="{{style.input}} {{#if error}} {{style.input-error}} {{/if}} {{#if
-    disabled}} {{style.input-disabled}} {{/if}}">
-    <input
-      id="{{id}}"
-      class="{{style.el}}"
-      type="{{type}}"
-      name="{{name}}"
-      {{#if disabled}} disabled {{/if}}
-      placeholder="{{placeholder}}"
-      value="{{value}}"
-    />
+  <div class="{{style.input}}
+    {{#if error}} {{style.input-error}} {{/if}}
+    {{#if disabled}} {{style.input-disabled}} {{/if}}
+  ">
+    {{{ input }}}
     {{#if error}}
       <i class="{{style.icon-error}}">
-        {{>iconError width="16"}}
+        {{{ iconError }}}
       </i>
     {{/if}}
   </div>

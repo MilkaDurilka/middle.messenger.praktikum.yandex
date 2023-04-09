@@ -5,21 +5,26 @@
   "scripts": {
     "start": "node src/app/server.ts",
     "dev": "parcel static/index.html",
-    "build": "rm -rf .parcel-cache dist && parcel build static/index.html"
+    "build": "rm -rf .parcel-cache dist && parcel build static/index.html",
+    "lint": "eslint --fix ./src"
   },
   "author": "m.anofrieva",
   "license": "ISC",
   "dependencies": {
     "@anikin/parcel-transformer-handlebars-precompile": "^1.0.1",
+    "date-fns": "^2.29.3",
     "express": "^4.18.2",
     "handlebars": "^4.7.7",
-    "parcel": "^2.8.3"
+    "parcel": "^2.8.3",
+    "uuid": "^9.0.0",
+    "yup": "^1.0.2"
   },
   "devDependencies": {
     "@parcel/css": "^1.14.0",
     "@parcel/transformer-sass": "^2.8.3",
     "@parcel/transformer-typescript-tsc": "^2.8.3",
     "@types/node": "^18.14.2",
+    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
     "eslint": "^8.35.0",
@@ -29,6 +34,9 @@
     "eslint-import-resolver-typescript": "^3.5.3",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "2.8.4"
+    "prettier": "2.8.4",
+    "stylelint": "^15.2.0",
+    "stylelint-config-clean-order": "^5.0.0",
+    "stylelint-config-standard-scss": "^7.0.1"
   }
 }

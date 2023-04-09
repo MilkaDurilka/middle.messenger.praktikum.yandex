@@ -4,17 +4,21 @@
 }
 
 .input {
+  cursor: pointer;
+
   display: flex;
   flex-direction: row;
   align-items: center;
 
-  border-radius: calc(var(--aliquot) * 2);
-  border: 1px solid var(--text);
-  cursor: pointer;
-  transition: box-shadow ease-out .3s, border-color ease-out .3s;
   padding-right: 16px;
 
-  &:hover:not(&-disabled), &:focus-within {
+  border: 1px solid var(--text);
+  border-radius: calc(var(--aliquot) * 2);
+
+  transition: box-shadow ease-out .3s, border-color ease-out .3s;
+
+
+  &:focus-within, &:hover:not(&-disabled) {
     box-shadow: 0 1px 4px var(--primary);
   }
 
@@ -23,16 +27,17 @@
   }
 
   &-disabled {
+    background-color: rgb(125 125 125 / 10%);
     border-color: var(--caption);
-    background-color: rgba(125, 125, 125, 0.1);
   }
 }
 
 .el {
+  width: 100%;
+  padding: 13px 16px 12px;
+
   background-color: transparent;
   border: none;
-  width: 100%;
-  padding: 13px 16px 12px 16px;
   outline: none;
 }
 
@@ -41,6 +46,6 @@
 }
 
 .icon-error {
-  color: var(--danger);
   height: 16px;
+  color: var(--danger);
 }

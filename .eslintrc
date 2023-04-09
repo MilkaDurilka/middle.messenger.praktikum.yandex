@@ -6,7 +6,10 @@
   "plugins": ["prettier"],
   "rules": {
     "import/prefer-default-export": "off",
-    "prettier/prettier": ["error"]
+    "prettier/prettier": ["error"],
+    "@typescript-eslint/consistent-type-imports": "error",
+    "class-methods-use-this": "off",
+    "no-template-curly-in-string": "off"
   },
   "settings": {
     "import/resolver": {

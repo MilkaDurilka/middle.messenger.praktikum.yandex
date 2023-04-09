@@ -1,22 +1,31 @@
 .input {
+  overflow: hidden;
+
   width: 240px;
   height: 240px;
-  border-radius: 48px;
+
   background-color: var(--secondary2);
-  overflow: hidden;
+  border-radius: 48px;
 }
 
 .edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 100%;
   height: 100%;
+
   opacity: 0;
+  background-color: rgb(125 125 125 / 70%);
+
   transition: opacity ease-out .3s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(125, 125, 125, 0.7);
 
   &:hover {
     opacity: 1;
   }
+}
+
+.error {
+  color: var(--danger);
 }

@@ -1,7 +1,17 @@
 <div class="input-img">
   <div class="{{style.input}}">
+    <input
+      id="{{id}}"
+      type="hidden"
+      name="{{name}}"
+      {{#if disabled}} disabled {{/if}}
+      value="{{value}}"
+    />
     <div class="{{style.edit}}">
-      {{> button type='button' text='Change avatar' }}
+      {{{ button }}}
     </div>
   </div>
+  {{#if error}}
+    <span class="{{style.error}}">{{error}}</span>
+  {{/if}}
 </div>
