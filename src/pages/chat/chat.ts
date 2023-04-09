@@ -2,7 +2,7 @@ import template from "./template.hbs";
 import { Block } from "../../shared/utils/block";
 import { Input, Link, ChatItem } from "../../shared/components";
 import type { TChatBlockProps } from "./types";
-import { ROUTES } from "../../shared/router/constants";
+import { ROUTES } from "../../shared/router";
 import { ChatHeader } from "./ui/chat-header";
 import { ChatBody } from "./ui/chat-body";
 import { ChatFooter } from "./ui/chat-footer";
@@ -12,7 +12,7 @@ import { mockData } from "./mock-data";
 export class ChatPage extends Block<TChatBlockProps> {
   constructor() {
     super({
-      linkProfile: new Link({ text: "Profile", href: ROUTES.profile }),
+      linkProfile: new Link({ text: "Profile", to: ROUTES.profile }),
       inputSearch: new Input({
         id: "search",
         name: "search",

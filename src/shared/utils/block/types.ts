@@ -11,3 +11,7 @@ export type TBlockProps<T = Record<string, unknown>> = T & {
 export type TBlockChildren = Record<string, Block | Block[]>;
 
 export type TStubs = Record<string, string>;
+
+export interface IBlockConstructor {
+  new (): Block;
+}

@@ -2,8 +2,7 @@ import { Button, Input, Link } from "../../../shared/components";
 import template from "./template.hbs";
 import type { TSignUpForm, TSignUpFormProps } from "./types";
 import { EForm } from "./types";
-import { ROUTES } from "../../../shared/router/constants";
-import { loginRegexp, nameRegexp, passwordRegexp, phoneRegexp } from "../../../shared/utils/regexp";
+import { ROUTES } from "../../../shared/router";
 import { Form } from "../../../shared/components/form";
 import { getValidationSchema, Validation } from "../../../shared/utils/validation";
 
@@ -83,7 +82,7 @@ export class SignUpForm extends Form<TSignUpFormProps, typeof formElements, TSig
     super({
       schema: signUpSchema,
       formElements,
-      linkLogIn: new Link({ text: "Log in", href: ROUTES.login }),
+      linkLogIn: new Link({ text: "Log in", to: ROUTES.login }),
       buttonSubmit: new Button({
         type: "submit",
         text: "Sign up",

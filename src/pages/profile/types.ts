@@ -1,10 +1,8 @@
 import type { Block } from "../../shared/utils/block";
 
-export type TProfileProps = {
+export type TProfileBlockProps = {
   title: string;
-};
 
-export type TProfileBlockProps = TProfileProps & {
   linkBack: Block;
   buttonLogout: Block;
   inputAvatar: Block;

@@ -2,8 +2,7 @@ import { Button, Input, Link } from "../../../shared/components";
 import template from "./template.hbs";
 import type { TLoginForm, TLoginFormBlock } from "./types";
 import { EForm } from "./types";
-import { ROUTES } from "../../../shared/router/constants";
-import { loginRegexp, passwordRegexp } from "../../../shared/utils/regexp";
+import { ROUTES } from "../../../shared/router";
 import { Form } from "../../../shared/components/form";
 import { Validation, getValidationSchema } from "../../../shared/utils/validation";
 
@@ -37,7 +36,7 @@ export class LoginForm extends Form<TLoginFormBlock, typeof formElements, TLogin
     super({
       schema: loginSchema,
       formElements,
-      linkSignUp: new Link({ text: "Sign up", href: ROUTES.signup }),
+      linkSignUp: new Link({ text: "Sign up", to: ROUTES.signup }),
       buttonSubmit: new Button({
         type: "submit",
         text: "Log in",

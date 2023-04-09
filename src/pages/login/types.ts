@@ -1,9 +1,6 @@
 import type { Block } from "../../shared/utils/block";
 
-export type TLoginProps = {
+export type TLoginBlockProps = {
   title: string;
-};
-
-export type TLoginBlockProps = TLoginProps & {
   form: Block;
 };

@@ -2,8 +2,7 @@ import { Button, Input, Link } from "../../../shared/components";
 import template from "./template.hbs";
 import type { TProfileForm, TProfileFormProps } from "./types";
 import { EForm } from "./types";
-import { ROUTES } from "../../../shared/router/constants";
-import { loginRegexp, nameRegexp, phoneRegexp } from "../../../shared/utils/regexp";
+import { ROUTES } from "../../../shared/router";
 import { Form } from "../../../shared/components/form";
 import { getValidationSchema, Validation } from "../../../shared/utils/validation";
 
@@ -72,7 +71,10 @@ export class ProfileForm extends Form<TProfileFormProps, typeof formElements, TP
     super({
       schema: profileSchema,
       formElements,
-      linkChangePassword: new Link({ text: "Change password", href: ROUTES.changePassword }),
+      linkChangePassword: new Link({
+        text: "Change password",
+        to: ROUTES.changePassword,
+      }),
       buttonSubmit: new Button({
         type: "submit",
         text: "Edit",

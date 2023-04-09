@@ -8,6 +8,7 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
     MOUNTED: "flow:component-did-mount",
     UPDATED: "flow:component-did-update",
     RENDER: "flow:render",
+    DESTROY: "flow:destroy",
   } as const;
 
   private element?: HTMLElement;
@@ -38,6 +39,7 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
     this.eventBus.on(this.EVENTS.MOUNTED, this.innerMounted.bind(this));
     this.eventBus.on(this.EVENTS.UPDATED, this.innerUpdated.bind(this));
     this.eventBus.on(this.EVENTS.RENDER, this.innerRender.bind(this));
+    this.eventBus.on(this.EVENTS.DESTROY, this.innerDestroy.bind(this));
   }
 
   makePropsProxy(props: T) {
@@ -120,6 +122,14 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
 
   abstract render(): DocumentFragment;
 
+  dispatchDestroy(): void {
+    this.eventBus.emit(this.EVENTS.DESTROY);
+  }
+
+  private innerDestroy(): void {
+    this.removeEvents();
+  }
+
   protected compile(template: (props: TBlockProps) => string, props: TBlockProps) {
     const stubs = this.getStubsForChildren();
     const propsWithStubs: TBlockProps = { ...props, ...stubs };
@@ -169,9 +179,7 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
     return this.element;
   }
 
-  createDocumentElement<K extends keyof HTMLElementTagNameMap>(
-    tagName: K
-  ): HTMLElementTagNameMap[K] {
+  createDocumentElement<K extends keyof HTMLElementTagNameMap>(tagName: K): HTMLElementTagNameMap[K] {
     const element = document.createElement(tagName);
     if (this.id) {
       element.setAttribute("data-id", this.id);
@@ -213,10 +221,7 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
     const children: TBlockChildren = {};
 
     Object.entries(propsAndChildren).forEach(([name, value]) => {
-      if (
-        value instanceof Block ||
-        (Array.isArray(value) && value.every((element) => element instanceof Block))
-      ) {
+      if (value instanceof Block || (Array.isArray(value) && value.every((element) => element instanceof Block))) {
         children[name] = value;
       } else {
         props[name] = value;

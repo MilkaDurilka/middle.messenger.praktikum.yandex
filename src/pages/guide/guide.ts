@@ -8,8 +8,13 @@ export class GuidePage extends Block {
       button: new Button({
         text: "button text",
       }),
-      link: new Link({ text: "link", href: "#" }),
-      input: new Input({ id: "input", name: "name", placeholder: "placeholder", label: "label" }),
+      link: new Link({ text: "link", to: "#" }),
+      input: new Input({
+        id: "input",
+        name: "name",
+        placeholder: "placeholder",
+        label: "label",
+      }),
       inputWithValue: new Input({
         id: "input",
         name: "name",

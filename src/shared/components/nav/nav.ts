@@ -8,7 +8,7 @@ import { ListItem } from "../list-item";
 export class Nav extends Block<TNavBlockProps> {
   constructor(props: TNavProps) {
     const navs = props.navs
-      .map(({ name, path }) => new Link({ text: name, href: path }))
+      .map(({ name, path }) => new Link({ text: name, to: path }))
       .map((link) => new ListItem({ content: link }));
     super({ navs });
   }
