@@ -1,21 +1,14 @@
-import type { ObjectSchema } from "yup";
-import { object, ref, string } from "yup";
 import { Button, Input } from "../../../shared/components";
 import template from "./template.hbs";
 import type { TTemplateBlockProps, TSchema } from "./types";
-import { passwordRegexp } from "../../../shared/utils/regexp";
 import { Form } from "../../../shared/components/form";
 import { EForm } from "./types";
-import { localeValidation } from "../../../shared/utils/locale";
+import { Validation, getValidationSchema } from "../../../shared/utils/validation";
 
-const changePasswordSchema: ObjectSchema<TSchema> = object({
-  [EForm.oldPassword]: string().required(),
-  [EForm.newPassword]: string().required().min(8).max(40).matches(passwordRegexp, {
-    message: localeValidation.passwordRegexp,
-  }),
-  [EForm.confirmPassword]: string()
-    .required()
-    .oneOf([ref(EForm.newPassword)]),
+const changePasswordSchema = getValidationSchema<TSchema>({
+  [EForm.oldPassword]: Validation.stringRequired(),
+  [EForm.newPassword]: Validation.password(),
+  [EForm.confirmPassword]: Validation.confirmPassword(EForm.newPassword),
 });
 
 const inputOldPassword = new Input({

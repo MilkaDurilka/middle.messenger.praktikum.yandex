@@ -1,13 +1,12 @@
-import type { ObjectSchema } from "yup";
-import { object, string } from "yup";
 import template from "./template.hbs";
 import type { TChatFooterBlock, TChatFooterForm } from "./types";
 import { Button, Icon } from "../../../../shared/components";
 import * as style from "./style.module.scss";
 import { Form } from "../../../../shared/components/form";
+import { Validation, getValidationSchema } from "../../../../shared/utils/validation";
 
-const messageSchema: ObjectSchema<TChatFooterForm> = object({
-  message: string().required(),
+const messageSchema = getValidationSchema<TChatFooterForm>({
+  message: Validation.stringRequired(),
 });
 
 export class ChatFooter extends Form<TChatFooterBlock, {}, TChatFooterForm> {

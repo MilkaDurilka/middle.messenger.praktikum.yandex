@@ -1,5 +1,3 @@
-import type { ObjectSchema } from "yup";
-import { object, string } from "yup";
 import { Button, Input, Link } from "../../../shared/components";
 import template from "./template.hbs";
 import type { TProfileForm, TProfileFormProps } from "./types";
@@ -7,7 +5,7 @@ import { EForm } from "./types";
 import { ROUTES } from "../../../shared/router/constants";
 import { loginRegexp, nameRegexp, phoneRegexp } from "../../../shared/utils/regexp";
 import { Form } from "../../../shared/components/form";
-import { localeValidation } from "../../../shared/utils/locale";
+import { getValidationSchema, Validation } from "../../../shared/utils/validation";
 
 const inputEmail = new Input({
   id: EForm.email,
@@ -60,23 +58,13 @@ const formElements = {
   [EForm.phone]: inputPhone,
 };
 
-const profileSchema: ObjectSchema<TProfileForm> = object({
-  [EForm.email]: string().required().email(),
-  [EForm.login]: string().required().min(3).max(8).matches(loginRegexp, {
-    message: localeValidation.loginRegexp,
-  }),
-  [EForm.firstName]: string().required().matches(nameRegexp, {
-    message: localeValidation.nameRegexp,
-  }),
-  [EForm.secondName]: string().required().matches(nameRegexp, {
-    message: localeValidation.nameRegexp,
-  }),
-  [EForm.displayName]: string().required(),
-  [EForm.phone]: string()
-    .required()
-    .min(10)
-    .max(15)
-    .matches(phoneRegexp, { message: localeValidation.phoneRegexp }),
+const profileSchema = getValidationSchema<TProfileForm>({
+  [EForm.email]: Validation.email(),
+  [EForm.login]: Validation.login(),
+  [EForm.firstName]: Validation.name(),
+  [EForm.secondName]: Validation.name(),
+  [EForm.displayName]: Validation.stringRequired(),
+  [EForm.phone]: Validation.phone(),
 });
 
 export class ProfileForm extends Form<TProfileFormProps, typeof formElements, TProfileForm> {
