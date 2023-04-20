@@ -3,6 +3,8 @@ import { Block } from "../../shared/utils/block";
 import { Button, Link } from "../../shared/components";
 import type { TChangePasswordBlockProps } from "./types";
 import { ChangePasswordForm } from "./ui";
+import { authController } from "../../processes/auth";
+import { ROUTES } from "../../shared/router";
 
 export class ChangePasswordPage extends Block<TChangePasswordBlockProps> {
   constructor() {
@@ -10,11 +12,16 @@ export class ChangePasswordPage extends Block<TChangePasswordBlockProps> {
       title: "Change password",
       linkBack: new Link({
         text: "Back",
-        isBack: true,
+        to: ROUTES.chat,
       }),
       buttonLogout: new Button({
         text: "Logout",
         danger: true,
+        events: {
+          click: () => {
+            authController.logout();
+          },
+        },
       }),
       form: new ChangePasswordForm(),
     });

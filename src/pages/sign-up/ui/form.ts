@@ -1,10 +1,14 @@
-import { Button, Input, Link } from "../../../shared/components";
+import { Button, Input, Link, Form } from "../../../shared/components";
 import template from "./template.hbs";
-import type { TSignUpForm, TSignUpFormProps } from "./types";
+import type { TSignUpForm } from "./types";
 import { EForm } from "./types";
 import { ROUTES } from "../../../shared/router";
-import { Form } from "../../../shared/components/form";
-import { getValidationSchema, Validation } from "../../../shared/utils/validation";
+import {
+  getValidationSchema,
+  Validation,
+} from "../../../shared/utils/validation";
+import type { TSignupData } from "../../../processes/auth";
+import { authController } from "../../../processes/auth";
 
 const inputEmail = new Input({
   id: EForm.email,
@@ -77,7 +81,7 @@ const signUpSchema = getValidationSchema<TSignUpForm>({
   [EForm.confirmPassword]: Validation.confirmPassword(EForm.password),
 });
 
-export class SignUpForm extends Form<TSignUpFormProps, typeof formElements, TSignUpForm> {
+export class SignUpForm extends Form {
   constructor() {
     super({
       schema: signUpSchema,
@@ -88,6 +92,10 @@ export class SignUpForm extends Form<TSignUpFormProps, typeof formElements, TSig
         text: "Sign up",
       }),
     });
+  }
+
+  onSubmit(data: TSignupData) {
+    authController.signup(data);
   }
 
   render() {

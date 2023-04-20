@@ -1,9 +1,13 @@
-import { Button, Input } from "../../../shared/components";
+import { Button, Input, Form } from "../../../shared/components";
 import template from "./template.hbs";
-import type { TTemplateBlockProps, TSchema } from "./types";
-import { Form } from "../../../shared/components/form";
+import type { TSchema } from "./types";
 import { EForm } from "./types";
-import { Validation, getValidationSchema } from "../../../shared/utils/validation";
+import {
+  Validation,
+  getValidationSchema,
+} from "../../../shared/utils/validation";
+import type { TChangePasswordData } from "../../../entitites/user/types";
+import { userController } from "../../../entitites/user";
 
 const changePasswordSchema = getValidationSchema<TSchema>({
   [EForm.oldPassword]: Validation.stringRequired(),
@@ -41,8 +45,7 @@ const formElements = {
   [EForm.confirmPassword]: inputConfirmPassword,
 };
 
-type TFormElements = typeof formElements;
-export class ChangePasswordForm extends Form<TTemplateBlockProps, TFormElements, TSchema> {
+export class ChangePasswordForm extends Form {
   constructor() {
     super({
       schema: changePasswordSchema,
@@ -52,6 +55,10 @@ export class ChangePasswordForm extends Form<TTemplateBlockProps, TFormElements,
         text: "Save",
       }),
     });
+  }
+
+  onSubmit(data: TChangePasswordData) {
+    return userController.changePassword(data);
   }
 
   render() {

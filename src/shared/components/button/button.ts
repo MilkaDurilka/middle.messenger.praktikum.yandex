@@ -8,6 +8,10 @@ export class Button extends Block<TButtonProps> {
     super({ type: "button", ...props });
   }
 
+  submit() {
+    this.element?.click();
+  }
+
   render() {
     return this.compile(template, { ...this.props, style });
   }

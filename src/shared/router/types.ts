@@ -1,4 +1,4 @@
-import type { IBlockConstructor } from "../utils/block";
+import type { TBlockConstructor } from "../utils/block";
 import type { Router } from "./router";
 
 export type TRouteProps = {
@@ -6,4 +6,8 @@ export type TRouteProps = {
   isExact: boolean;
 };
 
-export type TRouterUse = (pathname: string, component: IBlockConstructor, props?: { isExact: boolean }) => Router;
+export type TRouterUse = (
+  pathname: string,
+  component: TBlockConstructor,
+  props?: { isExact: boolean }
+) => Router;

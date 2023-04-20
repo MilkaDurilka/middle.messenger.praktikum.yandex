@@ -1,6 +1,6 @@
 import template from "./template.hbs";
 import { Block } from "../../shared/utils/block";
-import { Button, ErrorLayout, Input, InputImg, Link } from "../../shared/components";
+import { Button, ErrorLayout, Input, Link } from "../../shared/components";
 
 export class GuidePage extends Block {
   constructor() {
@@ -36,7 +36,6 @@ export class GuidePage extends Block {
         label: "label",
         disabled: true,
       }),
-      inputImg: new InputImg({ id: "avatar", name: "name" }),
       errorPage: new ErrorLayout({
         title: "404",
         description: "Page not found",

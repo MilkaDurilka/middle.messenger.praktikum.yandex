@@ -1,9 +1,15 @@
 import type { ISchema, ObjectSchema } from "yup";
-import { object, ref, string } from "yup";
-import { loginRegexp, nameRegexp, passwordRegexp, phoneRegexp } from "../regexp";
+import { object, ref, string, array } from "yup";
+import {
+  loginRegexp,
+  nameRegexp,
+  passwordRegexp,
+  phoneRegexp,
+} from "../regexp";
 import { localeValidation } from "../locale";
 
 export const Validation = {
+  array: () => array().required(localeValidation.arrayRequired),
   stringRequired: () => string().required(),
   password: () =>
     string().required().min(8).max(40).matches(passwordRegexp, {
@@ -22,7 +28,12 @@ export const Validation = {
     string().required().matches(nameRegexp, {
       message: localeValidation.nameRegexp,
     }),
-  phone: () => string().required().min(10).max(15).matches(phoneRegexp, { message: localeValidation.phoneRegexp }),
+  phone: () =>
+    string()
+      .required()
+      .min(10)
+      .max(15)
+      .matches(phoneRegexp, { message: localeValidation.phoneRegexp }),
 };
 
 type TObj = Record<string, ISchema<any>>;

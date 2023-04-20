@@ -11,14 +11,9 @@ export class Link extends Block<TLinkProps> {
       events: {
         click: (event: Event) => {
           event.preventDefault();
-          const { to, isBack } = this.props;
+          const { to } = this.props;
           if (to) {
             router.go(to);
-            return;
-          }
-
-          if (isBack) {
-            router.back();
           }
         },
       },

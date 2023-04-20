@@ -1,10 +1,14 @@
-import { Button, Input, Link } from "../../../shared/components";
+import { Button, Input, Link, Form } from "../../../shared/components";
 import template from "./template.hbs";
-import type { TLoginForm, TLoginFormBlock } from "./types";
+import type { TLoginForm } from "./types";
 import { EForm } from "./types";
 import { ROUTES } from "../../../shared/router";
-import { Form } from "../../../shared/components/form";
-import { Validation, getValidationSchema } from "../../../shared/utils/validation";
+import {
+  Validation,
+  getValidationSchema,
+} from "../../../shared/utils/validation";
+import type { TSignInData } from "../../../processes/auth";
+import { authController } from "../../../processes/auth";
 
 const loginSchema = getValidationSchema<TLoginForm>({
   [EForm.login]: Validation.login(),
@@ -31,7 +35,7 @@ const formElements = {
   [EForm.password]: inputPassword,
 };
 
-export class LoginForm extends Form<TLoginFormBlock, typeof formElements, TLoginForm> {
+export class LoginForm extends Form {
   constructor() {
     super({
       schema: loginSchema,
@@ -42,6 +46,10 @@ export class LoginForm extends Form<TLoginFormBlock, typeof formElements, TLogin
         text: "Log in",
       }),
     });
+  }
+
+  onSubmit(data: TSignInData) {
+    authController.signIn(data);
   }
 
   render() {

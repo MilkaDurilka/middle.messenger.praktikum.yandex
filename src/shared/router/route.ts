@@ -1,4 +1,4 @@
-import type { Block, IBlockConstructor } from "../utils/block";
+import type { Block, TBlockConstructor } from "../utils/block";
 import type { TRouteProps } from "./types";
 import { renderDOM } from "../utils/renderDOM";
 
@@ -7,7 +7,11 @@ export class Route {
 
   private regExp: RegExp;
 
-  constructor(public pathname: string, private readonly ComponentClass: IBlockConstructor, private props: TRouteProps) {
+  constructor(
+    public pathname: string,
+    private readonly ComponentClass: TBlockConstructor,
+    private props: TRouteProps
+  ) {
     this.regExp = new RegExp(this.pathname);
   }
 
