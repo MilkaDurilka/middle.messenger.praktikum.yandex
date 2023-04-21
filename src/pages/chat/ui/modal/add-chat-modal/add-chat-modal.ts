@@ -10,7 +10,7 @@ enum EForm {
   title = "title",
 }
 const schema = getValidationSchema({
-  [EForm.title]: Validation.name(),
+  [EForm.title]: Validation.stringRequired(),
 });
 
 export class AddChatModal extends Form {

@@ -20,7 +20,7 @@ export const Validation = {
       .required()
       .oneOf([ref(field)]),
   login: () =>
-    string().required().min(3).max(8).matches(loginRegexp, {
+    string().required().min(3).max(20).matches(loginRegexp, {
       message: localeValidation.loginRegexp,
     }),
   email: () => string().required().email(),

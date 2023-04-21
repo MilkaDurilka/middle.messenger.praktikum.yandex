@@ -21,6 +21,7 @@ const buildChatItems = (data: TChatData[]): ChatItem[] =>
         message: chat.last_message?.content,
         date: chat.last_message?.time,
         count: chat.unread_count,
+        avatarSrc: chat.avatar,
         events: {
           click: (e) => {
             e.preventDefault();

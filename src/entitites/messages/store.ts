@@ -4,11 +4,12 @@ import { hasKey } from "../../shared/utils/object";
 
 export const withMessages = withStore((state) => {
   const messages: TMessageBlock[] = [];
-  if (!state.selectedChatId) {
-    throw new Error("Selected chat is empty");
-  }
 
-  if (!state.messages || !hasKey(state.messages, state.selectedChatId)) {
+  if (
+    !state.selectedChatId ||
+    !state.messages ||
+    !hasKey(state.messages, state.selectedChatId)
+  ) {
     return { messages: [] };
   }
 
