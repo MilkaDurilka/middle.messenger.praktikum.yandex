@@ -12,7 +12,7 @@ export class Select extends Block<TSelectBlockProps> {
       id,
       disabled,
       label,
-      select: new PlainSelect({
+      selectEl: new PlainSelect({
         id,
         options,
         ...restProps,
@@ -24,7 +24,7 @@ export class Select extends Block<TSelectBlockProps> {
   updated(oldProps: TSelectBlockProps, newProps: TSelectBlockProps): boolean {
     const result = super.updated(oldProps, newProps);
     if (result) {
-      this.getChildren("select")?.setProps({
+      this.getChildren("selectEl")?.setProps({
         ...newProps,
       });
     }

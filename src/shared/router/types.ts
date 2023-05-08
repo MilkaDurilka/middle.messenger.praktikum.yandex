@@ -6,8 +6,10 @@ export type TRouteProps = {
   isExact: boolean;
 };
 
+export type TImportComponent = () => Promise<{ default: TBlockConstructor }>;
+
 export type TRouterUse = (
   pathname: string,
-  component: TBlockConstructor,
+  component: TImportComponent,
   props?: { isExact: boolean }
 ) => Router;

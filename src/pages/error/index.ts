@@ -1,1 +1,3 @@
-export { ErrorPage } from "./error";
+import { ErrorPage } from "./error";
+
+export default ErrorPage;

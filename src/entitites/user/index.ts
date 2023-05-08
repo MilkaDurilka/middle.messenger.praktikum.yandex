@@ -1,2 +1,2 @@
 export { userController } from "./controller";
-export { TUserData } from "./types";
+export type { TUserData } from "./types";

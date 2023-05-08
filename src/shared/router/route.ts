@@ -1,5 +1,5 @@
-import type { Block, TBlockConstructor } from "../utils/block";
-import type { TRouteProps } from "./types";
+import type { Block } from "../utils/block";
+import type { TRouteProps, TImportComponent } from "./types";
 import { renderDOM } from "../utils/renderDOM";
 
 export class Route {
@@ -9,7 +9,7 @@ export class Route {
 
   constructor(
     public pathname: string,
-    private readonly ComponentClass: TBlockConstructor,
+    private readonly importComponentClass: TImportComponent,
     private props: TRouteProps
   ) {
     this.regExp = new RegExp(this.pathname);
@@ -22,9 +22,11 @@ export class Route {
     return this.regExp.test(pathname);
   }
 
-  render(): void {
+  async render(): Promise<void> {
     if (!this.component) {
-      this.component = new this.ComponentClass();
+      // dynamic load pages script
+      const { default: Cmp } = await this.importComponentClass();
+      this.component = new Cmp();
       renderDOM(this.props.rootQuery, this.component);
       return;
     }

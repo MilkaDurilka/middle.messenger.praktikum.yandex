@@ -1,5 +1,6 @@
 import { Route } from "./route";
 import type { TRouterUse } from "./types";
+// import { TBlockConstructor } from "../utils/block";
 
 export class Router {
   private static instance: Router;

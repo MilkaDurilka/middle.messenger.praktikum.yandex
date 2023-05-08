@@ -3,12 +3,12 @@
     <label for="{{id}}" class="{{style.label}}">{{label}}</label>
   {{/if}}
   <div class="{{style.input}}
-    {{#if error}} {{style.input-error}} {{/if}}
-    {{#if disabled}} {{style.input-disabled}} {{/if}}
+    {{#if error}} {{style.inputError}} {{/if}}
+    {{#if disabled}} {{style.inputDisabled}} {{/if}}
   ">
-    {{{ select }}}
+    {{{ selectEl }}}
     {{#if error}}
-      <i class="{{style.icon-error}}">
+      <i class="{{style.iconError}}">
         {{{ iconError }}}
       </i>
     {{/if}}
