@@ -1,0 +1,51 @@
+.label {
+  margin-bottom: var(--aliquot);
+  color: var(--caption)
+}
+
+.input {
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  padding-right: 16px;
+
+  border: 1px solid var(--text);
+  border-radius: calc(var(--aliquot) * 2);
+
+  transition: box-shadow ease-out .3s, border-color ease-out .3s;
+
+
+  &:focus-within, &:hover:not(&-disabled) {
+    box-shadow: 0 1px 4px var(--primary);
+  }
+
+  &-error {
+    border-color: var(--danger);
+  }
+
+  &-disabled {
+    background-color: rgb(125 125 125 / 10%);
+    border-color: var(--caption);
+  }
+}
+
+.el {
+  width: 100%;
+  padding: 13px 16px 12px;
+
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.error {
+  color: var(--danger);
+}
+
+.icon-error {
+  height: 16px;
+  color: var(--danger);
+}

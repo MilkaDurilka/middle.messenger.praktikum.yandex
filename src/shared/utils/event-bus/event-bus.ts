@@ -23,7 +23,7 @@ export class EventBus {
 
   emit(eventName: string, ...args: unknown[]): void {
     if (!this.listeners[eventName]) {
-      throw new Error(`Event "${eventName}" not found `);
+      return;
     }
 
     this.listeners[eventName].forEach((listener) => listener(...args));

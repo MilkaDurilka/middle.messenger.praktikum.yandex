@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "node src/app/server.ts",
+    "start": "npm run build && node src/app/server.ts",
     "dev": "parcel static/index.html",
     "build": "rm -rf .parcel-cache dist && parcel build static/index.html",
     "lint": "eslint --fix ./src"
@@ -37,6 +37,7 @@
     "prettier": "2.8.4",
     "stylelint": "^15.2.0",
     "stylelint-config-clean-order": "^5.0.0",
-    "stylelint-config-standard-scss": "^7.0.1"
+    "stylelint-config-standard-scss": "^7.0.1",
+    "typescript": "^5.0.4"
   }
 }

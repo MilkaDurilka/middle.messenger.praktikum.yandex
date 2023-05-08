@@ -10,7 +10,7 @@ export class ErrorLayout extends Block<TErrorLayoutBlock> {
     super({
       ...props,
       icon: new Icon({ name: props.iconName, width: 255 }),
-      link: new Link({ text: props.linkText, href: props.linkUrl }),
+      link: new Link({ text: props.linkText, to: props.linkUrl }),
     });
   }
 

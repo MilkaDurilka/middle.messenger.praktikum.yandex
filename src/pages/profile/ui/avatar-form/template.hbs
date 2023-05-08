@@ -1,0 +1,14 @@
+<form class="{{style.input-img}}">
+  {{#if user.data.avatar}}
+    <img class="{{style.img}}" src="https://ya-praktikum.tech/api/v2/resources/{{user.data.avatar}}"/>
+  {{/if}}
+  <div class="{{style.edit}}">
+      {{{ input }}}
+    </div>
+  {{#if error}}
+    <span class="{{style.error}}">{{error}}</span>
+  {{/if}}
+  <div class="{{style.button}}">
+    {{{button}}}
+  </div>
+</form>

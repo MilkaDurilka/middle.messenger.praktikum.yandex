@@ -1,17 +1,47 @@
 import template from "./template.hbs";
 import { Block } from "../../../../shared/utils/block";
-import type { TChatHeaderProps, TChatHeaderBlock } from "./types";
+import type { TChatHeaderBlock, TChatHeaderProps } from "./types";
 import * as style from "./style.module.scss";
-import { Avatar, Button, Icon } from "../../../../shared/components";
+import { Avatar, Dropdown, modal } from "../../../../shared/components";
+import { chatController } from "../../../../entitites/chat";
+import { AddUserModal } from "../modal/add-user-modal";
+import { DeleteUserModal } from "../modal/delete-user-modal";
 
 export class ChatHeader extends Block<TChatHeaderBlock> {
   constructor(props: TChatHeaderProps) {
     super({
       ...props,
-      avatar: new Avatar({ src: props.avatarSrc }),
-      name: props.name,
-      menu: new Button({
-        icon: new Icon({ name: "menuPoints", width: 24 }),
+      avatar: new Avatar({ src: props.avatar }),
+      title: props.title,
+      menu: new Dropdown({
+        icon: "menuPoints",
+        content: [
+          {
+            text: "Add user to chat",
+            onClick: () => {
+              modal.show({
+                title: "Add user to chat",
+                content: new AddUserModal({ chatId: this.props.chatId }),
+              });
+            },
+          },
+          {
+            text: "Delete user from chat",
+            onClick: () => {
+              modal.show({
+                title: "Delete user to chat",
+                content: new DeleteUserModal({ chatId: this.props.chatId }),
+              });
+            },
+          },
+          {
+            text: "Delete chat",
+            onClick: () => {
+              // TODO: Добавить подтверждение действия перед удалением
+              chatController.delete(this.props.chatId);
+            },
+          },
+        ],
       }),
     });
   }

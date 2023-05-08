@@ -1,0 +1,24 @@
+.dropdown {
+ position: relative;
+}
+
+
+.options {
+  position: absolute;
+  z-index: var(--z-index-dropdown);
+  right: 0;
+
+  display: none;
+
+  width: 200px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+
+  background-color: var(--text2);
+  border-radius: 16px;
+  box-shadow: 0 1px 4px var(--primary);
+}
+
+.open .options{
+  display: block;
+}

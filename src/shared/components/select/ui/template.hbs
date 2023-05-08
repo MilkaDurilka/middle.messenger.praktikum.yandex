@@ -1,0 +1,11 @@
+<select
+  id="{{id}}"
+  class="{{style.el}}"
+  name="{{name}}{{#if multiple}}[]{{/if}}"
+  {{#if disabled}} disabled {{/if}}
+  {{#if multiple}} multiple {{/if}}
+>
+  {{#each options}}
+    <option value="{{value}}">{{text}}</option>
+  {{/each}}
+</select>

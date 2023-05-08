@@ -1,5 +1,5 @@
 export {};
 
 declare global {
-  type TObject = Record<string, unknown>;
+  type TObject = Record<string, any>;
 }

@@ -1,18 +1,22 @@
-import type { ObjectSchema } from "yup";
-import { object, string } from "yup";
 import template from "./template.hbs";
-import type { TChatFooterBlock, TChatFooterForm } from "./types";
-import { Button, Icon } from "../../../../shared/components";
+import type { TChatFooterSchema, TChatFooterProps } from "./types";
+import { Button, Icon, Form } from "../../../../shared/components";
 import * as style from "./style.module.scss";
-import { Form } from "../../../../shared/components/form";
+import {
+  Validation,
+  getValidationSchema,
+} from "../../../../shared/utils/validation";
+import { messageController } from "../../../../entitites/messages";
+import { withSelectedChatId } from "../../../../entitites/chat";
 
-const messageSchema: ObjectSchema<TChatFooterForm> = object({
-  message: string().required(),
+const messageSchema = getValidationSchema<TChatFooterSchema>({
+  message: Validation.stringRequired(),
 });
 
-export class ChatFooter extends Form<TChatFooterBlock, {}, TChatFooterForm> {
-  constructor() {
+class ChatFooterBase extends Form<TChatFooterProps> {
+  constructor(props: TChatFooterProps) {
     super({
+      ...props,
       schema: messageSchema,
       linkButton: new Button({
         icon: new Icon({ name: "link", width: 24 }),
@@ -24,7 +28,17 @@ export class ChatFooter extends Form<TChatFooterBlock, {}, TChatFooterForm> {
     });
   }
 
+  onSubmit({ message }: { message: string }) {
+    const id = this.props.selectedChatId;
+    if (id) {
+      messageController.sendMessage(id, message);
+    }
+    (this.element as HTMLFormElement)?.reset();
+  }
+
   render() {
     return this.compile(template, { style });
   }
 }
+
+export const ChatFooter = withSelectedChatId(ChatFooterBase);

@@ -1,21 +1,18 @@
-import type { ObjectSchema } from "yup";
-import { object, string } from "yup";
-import { Button, Input, Link } from "../../../shared/components";
+import { Button, Input, Link, Form } from "../../../shared/components";
 import template from "./template.hbs";
-import type { TLoginForm, TLoginFormBlock } from "./types";
+import type { TLoginForm } from "./types";
 import { EForm } from "./types";
-import { ROUTES } from "../../../shared/router/constants";
-import { loginRegexp, passwordRegexp } from "../../../shared/utils/regexp";
-import { Form } from "../../../shared/components/form";
-import { localeValidation } from "../../../shared/utils/locale";
+import { ROUTES } from "../../../shared/router";
+import {
+  Validation,
+  getValidationSchema,
+} from "../../../shared/utils/validation";
+import type { TSignInData } from "../../../processes/auth";
+import { authController } from "../../../processes/auth";
 
-const loginSchema: ObjectSchema<TLoginForm> = object({
-  [EForm.login]: string().required().min(3).max(8).matches(loginRegexp, {
-    message: localeValidation.loginRegexp,
-  }),
-  [EForm.password]: string().required().min(8).max(40).matches(passwordRegexp, {
-    message: localeValidation.passwordRegexp,
-  }),
+const loginSchema = getValidationSchema<TLoginForm>({
+  [EForm.login]: Validation.login(),
+  [EForm.password]: Validation.password(),
 });
 
 const inputLogin = new Input({
@@ -38,17 +35,21 @@ const formElements = {
   [EForm.password]: inputPassword,
 };
 
-export class LoginForm extends Form<TLoginFormBlock, typeof formElements, TLoginForm> {
+export class LoginForm extends Form {
   constructor() {
     super({
       schema: loginSchema,
       formElements,
-      linkSignUp: new Link({ text: "Sign up", href: ROUTES.signup }),
+      linkSignUp: new Link({ text: "Sign up", to: ROUTES.signup }),
       buttonSubmit: new Button({
         type: "submit",
         text: "Log in",
       }),
     });
+  }
+
+  onSubmit(data: TSignInData) {
+    authController.signIn(data);
   }
 
   render() {

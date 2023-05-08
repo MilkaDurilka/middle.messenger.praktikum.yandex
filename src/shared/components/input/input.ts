@@ -7,7 +7,17 @@ import { PlainInput } from "./ui";
 
 export class Input extends Block<TInputBlockProps> {
   constructor(props: TInputProps) {
-    const { id, name, type, disabled, placeholder, value, label } = props;
+    const {
+      id,
+      name,
+      type,
+      disabled,
+      placeholder,
+      value,
+      label,
+      events,
+      accept,
+    } = props;
     super({
       id,
       disabled,
@@ -19,6 +29,8 @@ export class Input extends Block<TInputBlockProps> {
         disabled,
         placeholder,
         value,
+        events,
+        accept,
       }),
       iconError: new Icon({ name: "error", width: 16 }),
     });

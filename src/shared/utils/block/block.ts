@@ -1,16 +1,20 @@
 import { v4 as generateUuid } from "uuid";
 import type { TBlockProps, TBlockChildren, TStubs } from "./types";
 import { EventBus } from "../event-bus";
+import { isEqual, deepClone, hasKey } from "../object";
 
-export abstract class Block<T extends TBlockProps = TBlockProps> {
+export class Block<
+  T extends Record<string, unknown> = Record<string, unknown>
+> {
   private EVENTS = {
     INIT: "flow:init",
     MOUNTED: "flow:component-did-mount",
     UPDATED: "flow:component-did-update",
     RENDER: "flow:render",
+    DESTROY: "flow:destroy",
   } as const;
 
-  private element?: HTMLElement;
+  protected element?: HTMLElement;
 
   private readonly id?: string;
 
@@ -21,11 +25,12 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
   private readonly eventBus: EventBus;
 
   constructor(propsAndChildren: TBlockProps<T>) {
-    const { children, props } = this.separatePropsFromChildren(propsAndChildren);
+    const { children, props } =
+      this.separatePropsFromChildren(propsAndChildren);
 
     this.id = generateUuid();
 
-    this.props = this.makePropsProxy({ ...props, __id: this.id });
+    this.props = this.makePropsProxy({ ...deepClone(props), __id: this.id });
     this.children = children;
 
     this.eventBus = new EventBus();
@@ -38,14 +43,17 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
     this.eventBus.on(this.EVENTS.MOUNTED, this.innerMounted.bind(this));
     this.eventBus.on(this.EVENTS.UPDATED, this.innerUpdated.bind(this));
     this.eventBus.on(this.EVENTS.RENDER, this.innerRender.bind(this));
+    this.eventBus.on(this.EVENTS.DESTROY, this.innerDestroy.bind(this));
   }
 
   makePropsProxy(props: T) {
     return new Proxy(props, {
       set: (target: T, name: string, newValue: unknown): boolean => {
+        const oldTarget = deepClone(target);
         // eslint-disable-next-line no-param-reassign
-        target[name as keyof T] = typeof newValue === "function" ? newValue.bind(this) : newValue;
-        this.eventBus.emit(this.EVENTS.UPDATED);
+        target[name as keyof T] =
+          typeof newValue === "function" ? newValue.bind(this) : newValue;
+        this.eventBus.emit(this.EVENTS.UPDATED, oldTarget, target);
         return true;
       },
       deleteProperty: (): never => {
@@ -95,8 +103,8 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  updated(_oldProps: T, _newProps: T): boolean {
-    return true;
+  updated(oldProps: T, newProps: T): boolean {
+    return !isEqual(oldProps, newProps);
   }
 
   private innerRender() {
@@ -118,18 +126,41 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
     this.addEvents();
   }
 
-  abstract render(): DocumentFragment;
+  // @ts-ignore
+  render(): DocumentFragment {}
 
-  protected compile(template: (props: TBlockProps) => string, props: TBlockProps) {
+  dispatchDestroy(): void {
+    this.eventBus.emit(this.EVENTS.DESTROY);
+  }
+
+  private innerDestroy(): void {
+    this.beforeDestroy();
+
+    Object.values(this.children).forEach((value) => {
+      if (Array.isArray(value)) {
+        value.forEach((child) => child.dispatchDestroy());
+      } else {
+        value.dispatchDestroy();
+      }
+    });
+
+    this.removeEvents();
+  }
+
+  beforeDestroy(): void {}
+
+  protected compile(template: (props: T) => string, props: TBlockProps<T>) {
     const stubs = this.getStubsForChildren();
-    const propsWithStubs: TBlockProps = { ...props, ...stubs };
+    const propsWithStubs: T = { ...props, ...stubs };
 
     const fragment = this.createDocumentElement("template");
     fragment.innerHTML = template(propsWithStubs);
 
     Object.values(this.children).forEach((value) => {
       if (Array.isArray(value)) {
-        value.forEach((child) => this.replaceStubWithComponent(fragment, child));
+        value.forEach((child) =>
+          this.replaceStubWithComponent(fragment, child)
+        );
       } else {
         this.replaceStubWithComponent(fragment, value);
       }
@@ -143,7 +174,9 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
 
     Object.entries(this.children).forEach(([name, value]) => {
       if (Array.isArray(value)) {
-        stubs[name] = value.map((child) => `<div data-id="${child.id}"></div>`).join("");
+        stubs[name] = value
+          .map((child) => `<div data-id="${child.id}"></div>`)
+          .join("");
       } else {
         stubs[name] = `<div data-id="${value.id}"></div>`;
       }
@@ -151,8 +184,13 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
     return stubs;
   }
 
-  private replaceStubWithComponent(fragment: HTMLTemplateElement, block: Block): void {
-    const stubsElements = fragment.content.querySelectorAll(`[data-id='${block.id}']`);
+  private replaceStubWithComponent(
+    fragment: HTMLTemplateElement,
+    block: Block
+  ): void {
+    const stubsElements = fragment.content.querySelectorAll(
+      `[data-id='${block.id}']`
+    );
     const content = block.getContent();
     if (!content) return;
 
@@ -215,7 +253,9 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
     Object.entries(propsAndChildren).forEach(([name, value]) => {
       if (
         value instanceof Block ||
-        (Array.isArray(value) && value.every((element) => element instanceof Block))
+        (Array.isArray(value) &&
+          value.length &&
+          value.every((element) => element instanceof Block))
       ) {
         children[name] = value;
       } else {
@@ -224,5 +264,15 @@ export abstract class Block<T extends TBlockProps = TBlockProps> {
     });
 
     return { props: props as T, children };
+  }
+
+  getChildren(key: string): Block | null {
+    if (!hasKey(this.children, key)) {
+      console.log(`Children with name = '${key}' not found!`);
+      return null;
+    }
+
+    const children = this.children[key];
+    return Array.isArray(children) ? null : children;
   }
 }

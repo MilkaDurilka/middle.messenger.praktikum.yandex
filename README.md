@@ -2,7 +2,10 @@
 
 Прототипы нарисованы в Figma: [ссылка на макет](https://www.figma.com/file/Qpll50dWQyTTndVqcu4RoT/Messenger?node-id=0%3A1&t=9wPPl45nOaz20qiK-1)
 
-Netlify: https://monumental-twilight-a5371e.netlify.app/
+Netlify (prod): https://monumental-twilight-a5371e.netlify.app/
+Netlify Preview 3 sprint: https://deploy-preview-7--monumental-twilight-a5371e.netlify.app/
+
+
 
 Команды:
 - для запуска проекта в режиме разработки
@@ -43,3 +46,12 @@ Netlify: https://monumental-twilight-a5371e.netlify.app/
  - Структура проекта соотвествует Feature-Sliced Design
  - Добавлен класс HTTPTransport для работы с запросами
  - Добавлены ESLint, Stylelint
+ - В проект добавлен роутинг
+ - Внедрен HTTP API чатов, авторизации и пользователей. [Описание API](https://ya-praktikum.tech/api/v2/swagger/#/)
+
+    Добавлено:
+
+    - авторизацию в полном объеме (регистрация, авторизация, выход из системы);
+    - работу с информацией пользователя (изменять данные пользователя, изменять аватар, изменять пароль);
+    - работу с чатами (список чатов пользователя, создать новый чат, добавить пользователя в чат, удалить пользователя из чата).
+- Подключены WebSocket для работы с real-time сообщениями. [Описание API](https://ya-praktikum.tech/api/v2/openapi/ws)

@@ -1,12 +1,12 @@
 import template from "./template.hbs";
 import { Block } from "../../shared/utils/block";
-import type { TLoginProps, TLoginBlockProps } from "./types";
+import type { TLoginBlockProps } from "./types";
 import { LoginForm } from "./ui";
 
 export class LoginPage extends Block<TLoginBlockProps> {
-  constructor(props: TLoginProps) {
+  constructor() {
     super({
-      ...props,
+      title: "Log in",
       form: new LoginForm(),
     });
   }

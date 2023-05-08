@@ -1,13 +1,12 @@
 import type { ObjectSchema, AnyObject, Maybe } from "yup";
-import type { TBlockProps } from "../../utils/block";
+import type { Block } from "../../utils/block";
 
-export type TFormProps<
-  TTemplateBlockProps extends TBlockProps,
-  TElementsForm,
-  TObjectSchema extends Maybe<AnyObject>
-> = TBlockProps<
-  Pick<TTemplateBlockProps, Exclude<keyof TTemplateBlockProps, keyof TElementsForm>>
-> & {
-  schema: ObjectSchema<TObjectSchema>;
-  formElements?: TElementsForm;
-};
+export type TFormElements = Record<string, Block>;
+
+export type TSchema = ObjectSchema<Maybe<AnyObject>>;
+
+export type TFormProps = {
+  schema?: TSchema;
+  formElements?: TFormElements;
+  isFormData?: boolean;
+} & Record<string, unknown>;

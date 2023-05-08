@@ -1,10 +1,7 @@
-import type { Block } from "../../../../shared/utils/block";
-
-export type TChatFooterBlock = {
-  linkButton: Block;
-  submitButton: Block;
+export type TChatFooterSchema = {
+  message: string;
 };
 
-export type TChatFooterForm = {
-  message: string;
+export type TChatFooterProps = {
+  selectedChatId?: number;
 };

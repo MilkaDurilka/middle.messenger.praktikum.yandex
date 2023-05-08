@@ -1,11 +1,14 @@
 import type { Block } from "../../../../shared/utils/block";
 
 export type TChatHeaderProps = {
-  avatarSrc?: string;
-  name: string;
+  chatId: number;
+  avatar?: string;
+  title: string;
 };
 
-export type TChatHeaderBlock = Omit<TChatHeaderProps, "avatar"> & {
+export type TChatHeaderBlock = {
+  chatId: number;
+  title: string;
   avatar: Block;
   menu: Block;
 };

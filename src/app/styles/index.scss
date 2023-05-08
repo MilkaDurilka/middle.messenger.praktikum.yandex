@@ -57,7 +57,7 @@ p, .text-medium {
   line-height: 130%;
 }
 
-span, label, input, .text-caption {
+span, label, input, select, .text-caption {
   font-family: Roboto, sans-serif;
   font-size: 1.5rem;
   font-weight: 400;
@@ -127,7 +127,7 @@ a {
   align-items: center;
 
   &-item {
-    flex: 1 0 auto;
+    flex: 1 1 50%;
   }
 }
 

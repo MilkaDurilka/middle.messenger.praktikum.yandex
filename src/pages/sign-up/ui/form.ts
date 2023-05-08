@@ -1,13 +1,14 @@
-import type { ObjectSchema } from "yup";
-import { object, ref, string } from "yup";
-import { Button, Input, Link } from "../../../shared/components";
+import { Button, Input, Link, Form } from "../../../shared/components";
 import template from "./template.hbs";
-import type { TSignUpForm, TSignUpFormProps } from "./types";
+import type { TSignUpForm } from "./types";
 import { EForm } from "./types";
-import { ROUTES } from "../../../shared/router/constants";
-import { loginRegexp, nameRegexp, passwordRegexp, phoneRegexp } from "../../../shared/utils/regexp";
-import { Form } from "../../../shared/components/form";
-import { localeValidation } from "../../../shared/utils/locale";
+import { ROUTES } from "../../../shared/router";
+import {
+  getValidationSchema,
+  Validation,
+} from "../../../shared/utils/validation";
+import type { TSignupData } from "../../../processes/auth";
+import { authController } from "../../../processes/auth";
 
 const inputEmail = new Input({
   id: EForm.email,
@@ -70,45 +71,31 @@ const formElements = {
   [EForm.confirmPassword]: inputConfirmPassword,
 };
 
-const signUpSchema: ObjectSchema<TSignUpForm> = object({
-  [EForm.email]: string().required().email(),
-  [EForm.login]: string()
-    .required()
-    .min(3)
-    .max(8)
-    .matches(loginRegexp, { message: localeValidation.loginRegexp }),
-  [EForm.firstName]: string()
-    .required()
-    .matches(nameRegexp, { message: localeValidation.nameRegexp }),
-  [EForm.secondName]: string()
-    .required()
-    .matches(nameRegexp, { message: localeValidation.nameRegexp }),
-  [EForm.phone]: string()
-    .required()
-    .min(10)
-    .max(15)
-    .matches(phoneRegexp, { message: localeValidation.phoneRegexp }),
-  [EForm.password]: string()
-    .required()
-    .min(8)
-    .max(40)
-    .matches(passwordRegexp, { message: localeValidation.passwordRegexp }),
-  [EForm.confirmPassword]: string()
-    .required()
-    .oneOf([ref(EForm.password)]),
+const signUpSchema = getValidationSchema<TSignUpForm>({
+  [EForm.email]: Validation.email(),
+  [EForm.login]: Validation.login(),
+  [EForm.firstName]: Validation.name(),
+  [EForm.secondName]: Validation.name(),
+  [EForm.phone]: Validation.phone(),
+  [EForm.password]: Validation.password(),
+  [EForm.confirmPassword]: Validation.confirmPassword(EForm.password),
 });
 
-export class SignUpForm extends Form<TSignUpFormProps, typeof formElements, TSignUpForm> {
+export class SignUpForm extends Form {
   constructor() {
     super({
       schema: signUpSchema,
       formElements,
-      linkLogIn: new Link({ text: "Log in", href: ROUTES.login }),
+      linkLogIn: new Link({ text: "Log in", to: ROUTES.login }),
       buttonSubmit: new Button({
         type: "submit",
         text: "Sign up",
       }),
     });
+  }
+
+  onSubmit(data: TSignupData) {
+    authController.signup(data);
   }
 
   render() {

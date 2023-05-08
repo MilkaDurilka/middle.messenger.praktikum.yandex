@@ -1,21 +1,18 @@
-import type { ObjectSchema } from "yup";
-import { object, ref, string } from "yup";
-import { Button, Input } from "../../../shared/components";
+import { Button, Input, Form } from "../../../shared/components";
 import template from "./template.hbs";
-import type { TTemplateBlockProps, TSchema } from "./types";
-import { passwordRegexp } from "../../../shared/utils/regexp";
-import { Form } from "../../../shared/components/form";
+import type { TSchema } from "./types";
 import { EForm } from "./types";
-import { localeValidation } from "../../../shared/utils/locale";
+import {
+  Validation,
+  getValidationSchema,
+} from "../../../shared/utils/validation";
+import type { TChangePasswordData } from "../../../entitites/user/types";
+import { userController } from "../../../entitites/user";
 
-const changePasswordSchema: ObjectSchema<TSchema> = object({
-  [EForm.oldPassword]: string().required(),
-  [EForm.newPassword]: string().required().min(8).max(40).matches(passwordRegexp, {
-    message: localeValidation.passwordRegexp,
-  }),
-  [EForm.confirmPassword]: string()
-    .required()
-    .oneOf([ref(EForm.newPassword)]),
+const changePasswordSchema = getValidationSchema<TSchema>({
+  [EForm.oldPassword]: Validation.stringRequired(),
+  [EForm.newPassword]: Validation.password(),
+  [EForm.confirmPassword]: Validation.confirmPassword(EForm.newPassword),
 });
 
 const inputOldPassword = new Input({
@@ -48,8 +45,7 @@ const formElements = {
   [EForm.confirmPassword]: inputConfirmPassword,
 };
 
-type TFormElements = typeof formElements;
-export class ChangePasswordForm extends Form<TTemplateBlockProps, TFormElements, TSchema> {
+export class ChangePasswordForm extends Form {
   constructor() {
     super({
       schema: changePasswordSchema,
@@ -59,6 +55,10 @@ export class ChangePasswordForm extends Form<TTemplateBlockProps, TFormElements,
         text: "Save",
       }),
     });
+  }
+
+  onSubmit(data: TChangePasswordData) {
+    return userController.changePassword(data);
   }
 
   render() {

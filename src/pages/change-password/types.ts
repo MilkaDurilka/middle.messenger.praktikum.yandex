@@ -1,10 +1,7 @@
 import type { Block } from "../../shared/utils/block";
 
-export type TChangePasswordProps = {
+export type TChangePasswordBlockProps = {
   title: string;
-};
-
-export type TChangePasswordBlockProps = TChangePasswordProps & {
   linkBack: Block;
   buttonLogout: Block;
   form: Block;

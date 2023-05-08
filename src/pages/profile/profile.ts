@@ -1,19 +1,27 @@
 import template from "./template.hbs";
 import { Block } from "../../shared/utils/block";
-import { Link, Button, InputImg } from "../../shared/components";
-import type { TProfileProps, TProfileBlockProps } from "./types";
-import { ProfileForm } from "./ui";
+import { Link, Button } from "../../shared/components";
+import type { TProfileBlockProps } from "./types";
+import { AvatarForm } from "./ui/avatar-form";
+import { ProfileForm } from "./ui/profile-form";
+import { authController } from "../../processes/auth";
+import { ROUTES } from "../../shared/router";
 
 export class ProfilePage extends Block<TProfileBlockProps> {
-  constructor(props: TProfileProps) {
+  constructor() {
     super({
-      ...props,
-      linkBack: new Link({ text: "Back", href: "#" }),
+      title: "Profile",
+      linkBack: new Link({ text: "Back", to: ROUTES.chat }),
       buttonLogout: new Button({
         text: "Logout",
         danger: true,
+        events: {
+          click: () => {
+            authController.logout();
+          },
+        },
       }),
-      inputAvatar: new InputImg({
+      inputAvatar: new AvatarForm({
         id: "avatar",
         name: "avatar",
       }),

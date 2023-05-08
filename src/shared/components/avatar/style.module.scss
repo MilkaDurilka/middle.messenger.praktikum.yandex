@@ -1,6 +1,13 @@
 .avatar {
+  overflow: hidden;
+
   width: 47px;
   height: 47px;
+
   background-color: var(--secondary2);
   border-radius: 50%;
+}
+
+.img {
+  width: 100%;
 }

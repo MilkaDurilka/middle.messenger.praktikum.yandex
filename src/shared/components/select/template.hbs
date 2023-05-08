@@ -1,0 +1,19 @@
+<div class="input">
+  {{#if label}}
+    <label for="{{id}}" class="{{style.label}}">{{label}}</label>
+  {{/if}}
+  <div class="{{style.input}}
+    {{#if error}} {{style.input-error}} {{/if}}
+    {{#if disabled}} {{style.input-disabled}} {{/if}}
+  ">
+    {{{ select }}}
+    {{#if error}}
+      <i class="{{style.icon-error}}">
+        {{{ iconError }}}
+      </i>
+    {{/if}}
+  </div>
+  {{#if error}}
+    <span class="{{style.error}}">{{error}}</span>
+  {{/if}}
+</div>

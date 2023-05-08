@@ -1,4 +1,4 @@
 export type TLinkProps = {
-  href: string;
+  to?: string;
   text: string;
 };

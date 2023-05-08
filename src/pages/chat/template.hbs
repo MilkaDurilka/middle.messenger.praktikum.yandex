@@ -3,6 +3,7 @@
     <aside class="{{ style.aside }}">
       <div class="{{ style.aside-header}}">
         <div class="buttons-group">
+          {{{ buttonAddChat }}}
           {{{ linkProfile }}}
         </div>
         <form>
@@ -11,24 +12,19 @@
       </div>
       <div class="{{ style.aside-body}}">
         <div class="{{ style.chats }}">
-            {{{ chatItem }}}
-            {{{ chatItem }}}
-            {{{ chatItem }}}
-            {{{ chatItem }}}
-            {{{ chatItem }}}
-            {{{ chatItem }}}
-            {{{ chatItem }}}
-            {{{ chatItem }}}
-            {{{ chatItem }}}
-            {{{ chatItem }}}
-            {{{ chatItem }}}
+          {{{ chatItems }}}
         </div>
       </div>
     </aside>
     <div class="{{ style.chat }}">
+      {{#if selectedChat}}
         {{{ chatHeader }}}
         {{{ chatBody }}}
         {{{ chatFooter }}}
+      {{else}}
+        <div class="{{ style.empty }} text-main">Select chat</div>
+      {{/if}}
     </div>
   </div>
+  {{{ modal }}}
 </div>
