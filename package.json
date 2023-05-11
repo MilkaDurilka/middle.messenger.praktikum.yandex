@@ -8,7 +8,9 @@
     "build": "webpack --config webpack/webpack.config.ts --mode production",
     "test": "mocha --require ts-node/register --require test/mochaSetup.ts -r dotenv/config './src/**/*.test.ts'",
     "lint": "eslint --fix ./src",
-    "report": "webpack --config webpack/webpack.config.ts --mode production --profile --json > stats.json; webpack-bundle-analyzer ./stats.json"
+    "report": "webpack --config webpack/webpack.config.ts --mode production --profile --json > stats.json; webpack-bundle-analyzer ./stats.json",
+    "prepare": "husky install",
+    "tsc": "tsc --noEmit"
   },
   "author": "m.anofrieva",
   "license": "ISC",
@@ -56,8 +58,10 @@
     "eslint-import-resolver-typescript": "^3.5.3",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
     "inspectpack": "^4.7.1",
     "jsdom": "^22.0.0",
+    "lint-staged": "^13.2.2",
     "mocha": "^10.2.0",
     "prettier": "2.8.4",
     "proxyquire": "^2.1.3",
@@ -73,5 +77,9 @@
     "webpack-cli": "^5.0.2",
     "webpack-deadcode-plugin": "^0.1.17",
     "webpack-dev-server": "^4.13.3"
+  },
+  "lint-staged": {
+    "**/*.ts": "eslint --fix",
+    "**/*.scss": "stylelint --fix"
   }
 }
