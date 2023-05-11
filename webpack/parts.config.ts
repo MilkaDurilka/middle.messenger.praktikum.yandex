@@ -1,11 +1,7 @@
 import type { Configuration } from "webpack";
-import { getIfUtils, removeEmpty } from "webpack-config-utils";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import argv from "webpack-nano/argv";
 import path from "path";
-
-const mode: string = (argv.mode as string) || "production";
-const { ifProduction, ifNotProduction } = getIfUtils(mode);
+import { ifNotProduction, ifProduction, removeEmpty } from "./utils";
 
 const config: Configuration = {
   module: {
