@@ -1,6 +1,5 @@
 import { Route } from "./route";
 import type { TRouterUse } from "./types";
-// import { TBlockConstructor } from "../utils/block";
 
 export class Router {
   private static instance: Router;
@@ -77,6 +76,11 @@ export class Router {
 
   private getRoute(pathname: string): Route | undefined {
     return this.routes.find((route) => route.match(pathname));
+  }
+
+  reset() {
+    this.routes = [];
+    this.currentRoute = null;
   }
 }
 

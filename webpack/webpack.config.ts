@@ -35,7 +35,7 @@ const devConfig: Configuration = {
     // @ts-ignore
     new DeadCodePlugin({
       patterns: ["src/**/*.(ts|scss|hbs|css)"],
-      exclude: ["**/*.spec.ts", "**/types.ts", "**/server.ts"],
+      exclude: ["**/*.test.ts", "**/types.ts", "**/server.ts"],
     }),
     new DuplicatesPlugin(),
   ],
