@@ -20,9 +20,9 @@ Render.com (prod): https://messenger-anofrieva.onrender.com/
   npm run start
   ```
 
-- для запуска фикса Eslint
+- для запуска тестов
   ```
-  npm run start
+  npm run test
   ```
 
 
