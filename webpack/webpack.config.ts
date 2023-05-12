@@ -20,6 +20,7 @@ const devConfig: Configuration = {
     static: "./static",
     historyApiFallback: true,
     open: true,
+    port: 1234,
   },
   devtool: "eval-cheap-module-source-map",
   optimization: {
