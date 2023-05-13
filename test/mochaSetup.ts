@@ -13,6 +13,7 @@ firePopstateOnRoute(window);
 global.window = window;
 global.document = window.document;
 global.DocumentFragment = window.DocumentFragment;
+global.FormData = window.FormData;
 
 require.extensions[".hbs"] = (module, filename) => {
   const content = fs.readFileSync(filename, "utf-8");

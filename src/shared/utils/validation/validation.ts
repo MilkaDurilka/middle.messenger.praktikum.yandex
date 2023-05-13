@@ -36,7 +36,7 @@ export const Validation = {
       .matches(phoneRegexp, { message: localeValidation.phoneRegexp }),
 };
 
-type TObj = Record<string, ISchema<any>>;
-export const getValidationSchema = <T extends Record<string, any>>(
+type TObj = Record<string, ISchema<unknown>>;
+export const getValidationSchema = <T extends Record<string, unknown>>(
   obj: Record<keyof T, ISchema<any>>
 ): ObjectSchema<T> => object(obj as TObj) as ObjectSchema<T>; // TODO: не понимаю как убрать as
