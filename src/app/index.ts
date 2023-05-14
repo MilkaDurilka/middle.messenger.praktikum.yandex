@@ -1,24 +1,40 @@
 import "./styles/index.scss";
 import "../shared/utils/locale";
 import { ROUTES, router } from "../shared/router";
-import { LoginPage } from "../pages/login";
-import { SignUpPage } from "../pages/sign-up";
-import { ProfilePage } from "../pages/profile";
-import { ChangePasswordPage } from "../pages/change-password";
-import { ErrorPage } from "../pages/error";
-import { GuidePage } from "../pages/guide";
-import { ChatPage } from "../pages/chat";
 import { authController } from "../processes/auth";
 
 window.addEventListener("DOMContentLoaded", async () => {
   router
-    .use(ROUTES.login, LoginPage)
-    .use(ROUTES.signup, SignUpPage)
-    .use(ROUTES.profile, ProfilePage)
-    .use(ROUTES.changePassword, ChangePasswordPage)
-    .use(ROUTES.guide, GuidePage)
-    .use(ROUTES.chat, ChatPage)
-    .use("/*", ErrorPage, { isExact: false });
+    .use(
+      ROUTES.login,
+      () => import(/* webpackChunkName: "login" */ "../pages/login")
+    )
+    .use(
+      ROUTES.signup,
+      () => import(/* webpackChunkName: "sign-up" */ "../pages/sign-up")
+    )
+    .use(
+      ROUTES.profile,
+      () => import(/* webpackChunkName: "profile" */ "../pages/profile")
+    )
+    .use(
+      ROUTES.changePassword,
+      () =>
+        import(
+          /* webpackChunkName: "change-password" */ "../pages/change-password"
+        )
+    )
+    .use(
+      ROUTES.guide,
+      () => import(/* webpackChunkName: "guide" */ "../pages/guide")
+    )
+    .use(
+      ROUTES.chat,
+      () => import(/* webpackChunkName: "chat" */ "../pages/chat")
+    )
+    .use("/*", () => import(/* webpackChunkName: "error" */ "../pages/error"), {
+      isExact: false,
+    });
 
   let isPrivateRoute;
 

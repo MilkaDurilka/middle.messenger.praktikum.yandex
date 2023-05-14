@@ -2,9 +2,7 @@
 
 Прототипы нарисованы в Figma: [ссылка на макет](https://www.figma.com/file/Qpll50dWQyTTndVqcu4RoT/Messenger?node-id=0%3A1&t=9wPPl45nOaz20qiK-1)
 
-Netlify (prod): https://monumental-twilight-a5371e.netlify.app/
-Netlify Preview 3 sprint: https://deploy-preview-7--monumental-twilight-a5371e.netlify.app/
-
+Render.com (prod): https://messenger-anofrieva.onrender.com/
 
 
 Команды:
@@ -22,9 +20,9 @@ Netlify Preview 3 sprint: https://deploy-preview-7--monumental-twilight-a5371e.n
   npm run start
   ```
 
-- для запуска фикса Eslint
+- для запуска тестов
   ```
-  npm run start
+  npm run test
   ```
 
 
@@ -55,3 +53,18 @@ Netlify Preview 3 sprint: https://deploy-preview-7--monumental-twilight-a5371e.n
     - работу с информацией пользователя (изменять данные пользователя, изменять аватар, изменять пароль);
     - работу с чатами (список чатов пользователя, создать новый чат, добавить пользователя в чат, удалить пользователя из чата).
 - Подключены WebSocket для работы с real-time сообщениями. [Описание API](https://ya-praktikum.tech/api/v2/openapi/ws)
+
+Webpack сборка:
+Плагины:
+- DeadCodePlugin - выведет предупреждения о неиспользуемых файлах
+- CaseSensitivePathsPlugin - при импортировании модуля с неправильным регистром выведет ошибку
+- inspectpack - при появлении копий пакета будет выскакивать предупреждение
+- TimeAnalyticsPlugin - Аналитика временных затрат загрузчиков и плагинов в webpack.
+- MiniCssExtractPlugin - плагин извлекает CSS в отдельные файлы. Он создает файл CSS для каждого файла JS, который содержит CSS.
+
+Для тестов используются: mocha, chai, sinon
+
+На проекте настроен pre-commit с помощью husky и lint-staged.
+- tsc запускается для всех файлов, потому что изменения в промежуточных файлах могут повлиять на компиляцию немодифицированных файлов.
+
+

@@ -23,5 +23,5 @@ export type TSelectBlockProps = Pick<
   "id" | "disabled" | "label" | "error"
 > & {
   iconError: Block;
-  select: Block;
+  selectEl: Block;
 };

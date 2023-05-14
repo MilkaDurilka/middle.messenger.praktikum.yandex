@@ -9,7 +9,13 @@
     "prettier/prettier": ["error"],
     "@typescript-eslint/consistent-type-imports": "error",
     "class-methods-use-this": "off",
-    "no-template-curly-in-string": "off"
+    "no-template-curly-in-string": "off",
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies":[
+        "webpack/*.config.ts",
+        "**/*.test.ts",
+        "test/mochaSetup.ts"
+      ]}]
   },
   "settings": {
     "import/resolver": {

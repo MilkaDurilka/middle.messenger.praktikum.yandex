@@ -1,9 +1,10 @@
 import type { TOptions, TRequest } from "./types";
 import { METHOD, queryStringify } from "./utils";
 import { isObject } from "../../object";
+import { API_URL } from "../../../contstants";
 
 export class HttpTransport {
-  static API_URL = "https://ya-praktikum.tech/api/v2";
+  static API_URL = API_URL;
 
   private endpoint: string;
 

@@ -1,1 +1,3 @@
-export { GuidePage } from "./guide";
+import { GuidePage } from "./guide";
+
+export default GuidePage;

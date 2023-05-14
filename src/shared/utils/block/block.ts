@@ -38,7 +38,7 @@ export class Block<
     this.eventBus.emit(this.EVENTS.INIT);
   }
 
-  registerEventListener(): void {
+  private registerEventListener(): void {
     this.eventBus.on(this.EVENTS.INIT, this.innerInit.bind(this));
     this.eventBus.on(this.EVENTS.MOUNTED, this.innerMounted.bind(this));
     this.eventBus.on(this.EVENTS.UPDATED, this.innerUpdated.bind(this));
@@ -46,7 +46,7 @@ export class Block<
     this.eventBus.on(this.EVENTS.DESTROY, this.innerDestroy.bind(this));
   }
 
-  makePropsProxy(props: T) {
+  private makePropsProxy(props: T) {
     return new Proxy(props, {
       set: (target: T, name: string, newValue: unknown): boolean => {
         const oldTarget = deepClone(target);
@@ -207,7 +207,7 @@ export class Block<
     return this.element;
   }
 
-  createDocumentElement<K extends keyof HTMLElementTagNameMap>(
+  private createDocumentElement<K extends keyof HTMLElementTagNameMap>(
     tagName: K
   ): HTMLElementTagNameMap[K] {
     const element = document.createElement(tagName);

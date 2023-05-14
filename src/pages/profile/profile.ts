@@ -25,7 +25,7 @@ export class ProfilePage extends Block<TProfileBlockProps> {
         id: "avatar",
         name: "avatar",
       }),
-      form: new ProfileForm(),
+      form: new ProfileForm({}),
     });
   }
 

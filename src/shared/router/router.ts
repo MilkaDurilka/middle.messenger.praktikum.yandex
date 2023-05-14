@@ -77,6 +77,11 @@ export class Router {
   private getRoute(pathname: string): Route | undefined {
     return this.routes.find((route) => route.match(pathname));
   }
+
+  reset() {
+    this.routes = [];
+    this.currentRoute = null;
+  }
 }
 
 export const router = new Router("#root");

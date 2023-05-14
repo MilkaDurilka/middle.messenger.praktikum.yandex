@@ -22,7 +22,7 @@ export class Input extends Block<TInputBlockProps> {
       id,
       disabled,
       label,
-      input: new PlainInput({
+      inputEl: new PlainInput({
         id,
         name,
         type,

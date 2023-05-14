@@ -1,2 +1,2 @@
 export { authController } from "./controller";
-export { TSignInData, TSignupData } from "./types";
+export type { TSignInData, TSignupData } from "./types";

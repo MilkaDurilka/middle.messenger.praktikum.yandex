@@ -1,2 +1,2 @@
 export { Icon } from "./icon";
-export { TIconName } from "./types";
+export type { TIconName } from "./types";

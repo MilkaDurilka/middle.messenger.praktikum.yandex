@@ -6,7 +6,7 @@ export type TBlockProps<
   T extends Record<string, unknown> = Record<string, unknown>
 > = T & {
   events?: Record<string, TCallback>;
-  style?: any;
+  style?: unknown;
   __id?: string;
 };
 

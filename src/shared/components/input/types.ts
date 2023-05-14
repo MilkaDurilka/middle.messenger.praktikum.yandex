@@ -20,5 +20,5 @@ export type TInputBlockProps = Pick<
   "id" | "disabled" | "label" | "error"
 > & {
   iconError: Block;
-  input: Block;
+  inputEl: Block;
 };
